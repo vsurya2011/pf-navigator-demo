@@ -37,7 +37,7 @@
     min-height:100vh;
   }
   button{font-family:inherit; cursor:pointer; border:none; background:none;}
-  input, textarea{font-family:inherit;}
+  input{font-family:inherit;}
   ::selection{background:var(--blue-light);}
   a{color:inherit;}
 
@@ -49,29 +49,6 @@
 
   @media (prefers-reduced-motion: reduce){
     *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
-  }
-
-  /* ---------- Demo Banner ---------- */
-  .global-demo-banner{
-    background: linear-gradient(90deg, #1B5FA8, #0F2A4A);
-    color: #fff;
-    font-size: 11.5px;
-    font-weight: 700;
-    font-family: var(--mono);
-    padding: 6px 12px;
-    text-align: center;
-    letter-spacing: .05em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    z-index: 100;
-  }
-  .global-demo-banner .badge-pill{
-    background: rgba(255,255,255,0.2);
-    padding: 2px 6px;
-    border-radius: 4px;
-    text-transform: uppercase;
   }
 
   /* ---------- App shell ---------- */
@@ -188,87 +165,8 @@
 
   .card{
     background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
-    padding:22px; margin-bottom: 20px;
+    padding:22px;
   }
-
-  /* ---------- Intelligence Layer & Action Cards ---------- */
-  .action-required-card {
-    background: #FFF9E6;
-    border: 1.5px solid #FFE08A;
-    border-radius: var(--radius);
-    padding: 16px 20px;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-  }
-  .action-required-left {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-  }
-  .action-icon-pill {
-    background: #FFC24B;
-    color: var(--navy-deep);
-    font-weight: 800;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  .action-title { font-size: 14.5px; font-weight: 700; color: var(--navy); }
-  .action-desc { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
-
-  /* ---------- PF Health Summary ---------- */
-  .pf-health-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 20px;
-  }
-  .health-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
-  .health-score { font-family: var(--mono); font-size: 22px; font-weight: 800; color: var(--success); }
-  .health-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-  .health-item { background: var(--bg); padding: 10px 12px; border-radius: 8px; font-size: 12.5px; }
-  .health-item-label { color: var(--text-muted); font-size: 11px; margin-bottom: 2px; }
-  .health-item-status { font-weight: 700; display: flex; align-items: center; gap: 4px; }
-  .health-item-status.ok { color: var(--success); }
-  .health-item-status.warn { color: var(--warning); }
-
-  /* ---------- Reasoning Visualization ---------- */
-  .reasoning-box {
-    background: var(--bg);
-    border-left: 3px solid var(--blue);
-    padding: 14px 16px;
-    border-radius: 0 10px 10px 0;
-    margin: 14px 0;
-  }
-  .reasoning-title {
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--blue);
-    text-transform: uppercase;
-    letter-spacing: .05em;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .reasoning-list { margin-top: 8px; font-size: 13px; color: var(--text); line-height: 1.5; padding-left: 18px; }
-
-  /* ---------- Document Check View ---------- */
-  .doc-checklist { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
-  .doc-item {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 14px 16px; border: 1px solid var(--border); border-radius: 10px; background: #fff;
-  }
-  .doc-info { display: flex; align-items: center; gap: 12px; }
-  .doc-status-badge { font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 12px; }
-  .doc-status-badge.verified { background: var(--success-bg); color: var(--success); }
-  .doc-status-badge.action { background: var(--warning-bg); color: var(--warning); }
 
   /* ---------- Dashboard ---------- */
   .greeting{font-size:24px; font-weight:800; letter-spacing:-0.02em; margin-bottom:2px;}
@@ -346,7 +244,7 @@
   .mini-step .mt-title{font-size:12.5px; font-weight:700;}
   .mini-step .mt-sub{font-size:11.5px; color:var(--text-faint); font-family:var(--mono);}
 
-  /* ---------- Journey stepper ---------- */
+  /* ---------- Journey stepper (signature element, larger) ---------- */
   .journey-rail{display:flex; flex-direction:column; margin:6px 0 0;}
   .rail-step{display:flex; gap:16px; position:relative; padding-bottom:30px;}
   .rail-step:last-child{padding-bottom:0;}
@@ -443,6 +341,15 @@
   }
   .status-badge .s{width:7px; height:7px; border-radius:50%; background:var(--warning);}
 
+  /* ---------- Quick action flow ---------- */
+  .flow-steps{display:flex; gap:8px; margin-bottom:24px; flex-wrap:wrap;}
+  .flow-step-pill{
+    font-size:12px; font-weight:700; padding:6px 12px; border-radius:20px; background:var(--bg); color:var(--text-faint);
+    display:flex; align-items:center; gap:6px;
+  }
+  .flow-step-pill.active{background:var(--blue); color:#fff;}
+  .flow-step-pill.done{background:var(--success-bg); color:var(--success);}
+
   .info-list{display:flex; flex-direction:column; gap:1px; border-radius:12px; overflow:hidden; border:1px solid var(--border);}
   .info-row{display:flex; justify-content:space-between; align-items:center; padding:14px 18px; background:#fff; font-size:14px;}
   .info-row + .info-row{border-top:1px solid var(--border);}
@@ -495,7 +402,7 @@
   .dsug{font-size:11.5px; font-weight:600; padding:6px 10px; border-radius:16px; background:#fff; border:1px solid var(--border); color:var(--text-muted);}
   .dsug:hover{border-color:var(--blue); color:var(--blue);}
 
-  /* ---------- Toast ---------- */
+  /* ---------- Toast / notification modal ---------- */
   .toast{
     position:fixed; top:20px; left:50%; transform:translateX(-50%) translateY(-20px); opacity:0;
     background:var(--navy); color:#fff; padding:12px 20px; border-radius:10px; font-size:13.5px; font-weight:600;
@@ -552,17 +459,93 @@
     .drawer-overlay{padding:0; align-items:flex-end;}
     .drawer{width:100%; max-height:82vh; border-radius:18px 18px 0 0;}
   }
+
+  /* ================= V2 PRODUCT EXPERIENCE ================= */
+  .demo-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:var(--warning-bg);color:var(--warning);font:700 10.5px var(--mono);letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;}
+  .topbar-actions{display:flex;align-items:center;gap:10px;}
+  .intake-shell{max-width:880px;margin:8px auto 0;}
+  .intake-card{background:linear-gradient(180deg,#fff 0%,#fbfdff 100%);border:1px solid var(--border);border-radius:24px;padding:34px;box-shadow:0 18px 50px -34px rgba(15,42,74,.32);}
+  .intake-kicker{display:inline-flex;align-items:center;gap:7px;padding:7px 10px;border-radius:999px;background:var(--blue-light);color:var(--blue);font:700 10.5px var(--mono);text-transform:uppercase;letter-spacing:.06em;margin-bottom:16px;}
+  .intake-title{font-size:42px;line-height:1.05;letter-spacing:-.035em;font-weight:800;margin-bottom:10px;}
+  .intake-sub{font-size:15px;color:var(--text-muted);max-width:650px;line-height:1.6;margin-bottom:26px;}
+  .intake-prompt{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:800;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;}
+  .intake-prompt .pulse-dot{width:7px;height:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 5px var(--blue-light);}
+  .intake-textarea{width:100%;min-height:150px;border:1.5px solid var(--border);border-radius:16px;padding:18px 18px 16px;font:500 16px/1.6 var(--sans);color:var(--text);background:#fff;resize:vertical;outline:none;transition:.2s;}
+  .intake-textarea:focus{border-color:var(--blue);box-shadow:0 0 0 4px var(--blue-light);}
+  .intake-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:14px;flex-wrap:wrap;}
+  .speak-inline{padding:10px 13px;border:1px solid var(--border);border-radius:10px;color:var(--text-muted);font-weight:700;font-size:12.5px;background:#fff;}
+  .understand-btn{padding:12px 17px;border-radius:11px;background:var(--navy);color:#fff;font-weight:800;font-size:13.5px;box-shadow:0 8px 20px -10px rgba(15,42,74,.55);}
+  .understand-btn:hover{transform:translateY(-1px);background:#0b2039;}
+  .intake-note{margin-top:14px;font-size:11.5px;color:var(--text-faint);display:flex;align-items:center;gap:7px;}
+  .understanding-card{margin-top:18px;background:#fff;border:1px solid var(--border);border-radius:20px;padding:24px;display:none;animation:fadeIn .3s ease;}
+  .understanding-card.show{display:block;}
+  .uc-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:18px;}
+  .uc-title{font-size:18px;font-weight:800;letter-spacing:-.015em;}
+  .uc-sub{font-size:13px;color:var(--text-muted);margin-top:4px;}
+  .confidence{padding:6px 9px;border-radius:999px;background:var(--success-bg);color:var(--success);font:700 10.5px var(--mono);white-space:nowrap;}
+  .understanding-quote{padding:15px 16px;border-radius:14px;background:var(--bg);font-size:14.5px;line-height:1.55;margin-bottom:16px;}
+  .decision-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px;}
+  .decision-cell{background:var(--bg);border-radius:12px;padding:13px 14px;min-height:80px;}
+  .decision-cell .lbl{font-size:10.5px;color:var(--text-faint);text-transform:uppercase;letter-spacing:.05em;font-weight:800;margin-bottom:6px;}
+  .decision-cell .val{font-size:13.5px;font-weight:700;line-height:1.35;}
+  .journey-strip{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:18px;}
+  .journey-strip .tag{font-size:11.5px;font-weight:700;padding:7px 10px;border-radius:999px;background:var(--bg);color:var(--text-muted);}
+  .journey-strip .tag.done{background:var(--success-bg);color:var(--success);}
+  .journey-strip .tag.active{background:var(--blue-light);color:var(--blue);}
+  .uc-actions{display:flex;gap:10px;flex-wrap:wrap;}
+  .btn-secondary{padding:11px 14px;border-radius:10px;background:#fff;border:1.5px solid var(--border);font-size:13px;font-weight:700;color:var(--text-muted);}
+  .btn-secondary:hover{border-color:var(--blue);color:var(--blue);}
+  .btn-dark{padding:11px 14px;border-radius:10px;background:var(--navy);color:#fff;font-size:13px;font-weight:800;}
+  .action-intel{margin:18px 0;display:grid;grid-template-columns:1.15fr .85fr;gap:14px;}
+  .action-card{border-radius:18px;padding:18px 20px;border:1px solid transparent;}
+  .action-card.safe{background:var(--success-bg);border-color:#cde8d9;}
+  .action-card.warn{background:var(--warning-bg);border-color:#eed9b8;}
+  .action-card.danger{background:var(--error-bg);border-color:#f0cccc;}
+  .action-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px;}
+  .action-state{font:800 10.5px var(--mono);text-transform:uppercase;letter-spacing:.05em;}
+  .safe .action-state{color:var(--success)} .warn .action-state{color:var(--warning)} .danger .action-state{color:var(--error)}
+  .action-title{font-size:17px;font-weight:800;letter-spacing:-.01em;margin-bottom:4px;}
+  .action-body{font-size:13px;line-height:1.55;color:var(--text-muted);}
+  .action-link{margin-top:12px;display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:800;color:var(--navy);}
+  .summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0 10px;}
+  .summary-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:16px;}
+  .summary-num{font-size:27px;line-height:1;font-weight:800;letter-spacing:-.03em;margin-bottom:7px;}
+  .summary-label{font-size:11.5px;color:var(--text-muted);font-weight:700;}
+  .summary-card.accent{background:linear-gradient(135deg,#fff,#f5f9fe);}
+  .on-track{display:flex;align-items:center;gap:10px;background:var(--navy);color:#fff;border-radius:14px;padding:13px 16px;margin-top:12px;}
+  .on-track .mark{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.12);}
+  .on-track .t{font-size:13px;font-weight:800;} .on-track .s{font-size:11.5px;color:#cfe0f5;margin-top:2px;}
+  .why-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px;}
+  .why-card{background:var(--bg);border-radius:13px;padding:16px 18px;border-left:3px solid var(--blue);}
+  .why-card.alt{border-left-color:var(--text-faint);}
+  .why-card .lbl{font-size:10.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--text-faint);margin-bottom:6px;}
+  .why-card .body{font-size:13.5px;line-height:1.55;}
+  .document-layout{display:grid;grid-template-columns:1fr .95fr;gap:16px;max-width:980px;}
+  .doc-picker,.doc-result{background:#fff;border:1px solid var(--border);border-radius:18px;padding:20px;}
+  .doc-options{display:grid;gap:10px;margin-top:15px;}
+  .doc-option{text-align:left;border:1px solid var(--border);background:#fff;border-radius:13px;padding:14px;transition:.15s;}
+  .doc-option:hover,.doc-option.active{border-color:var(--blue);background:var(--blue-light);}
+  .doc-option .t{font-size:13px;font-weight:800;margin-bottom:3px}.doc-option .s{font-size:11.5px;color:var(--text-muted)}
+  .doc-result{min-height:310px;background:linear-gradient(180deg,#fff,#fbfdff);}
+  .doc-status{display:inline-flex;padding:6px 9px;border-radius:999px;background:var(--success-bg);color:var(--success);font:800 10px var(--mono);text-transform:uppercase;letter-spacing:.04em;margin-bottom:15px;}
+  .doc-result h3{font-size:19px;margin-bottom:8px}.doc-result p{font-size:13px;color:var(--text-muted);line-height:1.55;margin-bottom:14px;}
+  .doc-list{display:grid;gap:8px;margin:12px 0 18px;}.doc-item{font-size:12.5px;display:flex;align-items:flex-start;gap:8px}.doc-item .ok{color:var(--success);font-weight:800}.doc-item .miss{color:var(--warning);font-weight:800}
+  .doc-footnote{font-size:11px;color:var(--text-faint);line-height:1.5;margin-top:14px;}
+  .hero-meta-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:14px;}
+  .hero-action-state{font-size:11.5px;font-weight:800;color:#cfe0f5;display:flex;align-items:center;gap:7px;}
+  .hero-action-state .dot2{width:7px;height:7px;border-radius:50%;background:#8fd1b8;}
+  .demo-inline{font:700 10px var(--mono);padding:5px 8px;border-radius:999px;background:rgba(255,255,255,.11);color:#cfe0f5;letter-spacing:.04em;text-transform:uppercase;}
+  .qa-feature{border-color:#c8d8e9;box-shadow:0 6px 20px -14px rgba(15,42,74,.35)}
+  .section-label.spaced{margin-top:30px}
+  @media (max-width:980px){.decision-grid{grid-template-columns:repeat(2,1fr)}.summary-grid{grid-template-columns:repeat(2,1fr)}.document-layout,.action-intel{grid-template-columns:1fr}.intake-title{font-size:34px}}
+  @media (max-width:860px){.intake-card{padding:24px 18px;border-radius:20px}.intake-title{font-size:30px}.summary-grid{grid-template-columns:repeat(2,1fr)}.decision-grid{grid-template-columns:1fr 1fr}.why-row{grid-template-columns:1fr}.hero-meta-row{align-items:flex-start}.demo-badge{font-size:9.5px}.topbar-actions{gap:7px}.intake-footer{align-items:stretch}.understand-btn{width:100%}.speak-inline{width:100%}}
+  @media (max-width:520px){.summary-grid{gap:8px}.summary-card{padding:13px}.summary-num{font-size:23px}.decision-grid{grid-template-columns:1fr}.intake-textarea{min-height:180px}.action-card{padding:16px}.doc-picker,.doc-result{padding:16px}}
+
 </style>
 </head>
 <body>
 
 <div id="app">
-
-  <!-- Global Demo Mode Banner -->
-  <div class="global-demo-banner">
-    <span class="badge-pill">Interactive Demo</span>
-    PF Navigator Engine · Synthetic Data Only
-  </div>
 
   <!-- ================= LOGIN VIEW ================= -->
   <section class="view active" id="view-login">
@@ -613,7 +596,6 @@
       <nav class="side-nav">
         <button data-nav="dashboard" class="active"><span class="ic">⌂</span> Dashboard</button>
         <button data-nav="journey"><span class="ic">◈</span> My PF Journey</button>
-        <button data-nav="docs"><span class="ic">📄</span> Document Check</button>
         <button data-nav="status"><span class="ic">▤</span> Track Status</button>
         <button data-nav="profile"><span class="ic">◔</span> Profile</button>
       </nav>
@@ -630,274 +612,49 @@
           <div class="glyph">PF</div>
           <div><div class="name" style="font-size:15px;">PF Navigator</div></div>
         </div>
-        <button id="logoutBtnMobile" style="font-size:12.5px; font-weight:700; color:var(--text-muted);">Sign out</button>
+        <div class="topbar-actions"><span class="demo-badge">Demo · Synthetic</span><button id="logoutBtnMobile" style="font-size:12.5px; font-weight:700; color:var(--text-muted);">Sign out</button></div>
       </div>
 
       <!-- ---------- DASHBOARD ---------- -->
       <section class="view" id="view-dashboard">
-        <div class="greeting" id="greetingText">Good morning, Mohammed 👋</div>
-        <div class="greeting-sub">Here's what's happening with your PF right now.</div>
-
-        <!-- Action Required Intelligence Layer -->
-        <div class="action-required-card">
-          <div class="action-required-left">
-            <div class="action-icon-pill">!</div>
-            <div>
-              <div class="action-title">Action Required: Employer Verification Verification</div>
-              <div class="action-desc">Your new employer (TechNova) requires a quick document confirmation before Form 13 transfer approval.</div>
-            </div>
-          </div>
-          <button class="hero-btn" style="background:var(--navy); color:#fff; flex-shrink:0;" data-nav="docs">Verify Now</button>
-        </div>
-
+        <div class="page-head" style="margin-bottom:16px;"><div class="greeting">Good morning, Mohammed 👋</div><div class="greeting-sub">Your PF, simplified into one clear journey.</div>
+<div style="margin:0 0 18px;padding:10px 14px;border:1px solid #EED9B8;background:#FBF0E0;border-radius:10px;font-size:12px;font-weight:700;color:#8B5B10;">
+  DEMO ONLY · Synthetic EPFO data · No live government connection or submission
+</div>
+</div>
         <div class="dash-grid">
-          <div class="hero-journey-card">
-            <div class="hero-top">
-              <div class="hero-label"><span class="dot"></span> PF Transfer</div>
-              <div class="hero-ref">PF-TRF-2026-08421</div>
-            </div>
-            <div class="hero-title">Verification in progress</div>
-            <div class="hero-status">Your new employer is confirming your service details before the transfer proceeds.</div>
-            <div class="progress-track"><div class="progress-fill" id="dashProgressFill"></div></div>
-            <div class="progress-meta"><span>62% complete</span><span>Est. 4–6 days left</span></div>
-            <button class="hero-btn" data-nav="journey">View journey →</button>
-          </div>
-
-          <div class="side-stack">
-            <!-- PF Health Summary -->
-            <div class="pf-health-card">
-              <div class="health-header">
-                <span class="eyebrow" style="margin-bottom:0;">PF Health Score</span>
-                <span class="health-score">92%</span>
-              </div>
-              <div class="health-grid">
-                <div class="health-item">
-                  <div class="health-item-label">UAN Active</div>
-                  <div class="health-item-status ok">✓ Linked</div>
-                </div>
-                <div class="health-item">
-                  <div class="health-item-label">KYC (Aadhaar)</div>
-                  <div class="health-item-status ok">✓ Verified</div>
-                </div>
-                <div class="health-item">
-                  <div class="health-item-label">Bank Seeding</div>
-                  <div class="health-item-status ok">✓ Approved</div>
-                </div>
-                <div class="health-item">
-                  <div class="health-item-label">Date of Exit</div>
-                  <div class="health-item-status warn">⚠ Check needed</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="ai-card">
-              <div class="ai-card-head"><div class="ai-orb">✦</div><div class="t">AI Assistant</div></div>
-              <p>"Your PF transfer is currently being verified by your new employer. You don't need to take any action right now — I'll let you know the moment that changes."</p>
-              <button class="ai-ask-btn" id="openDrawerFromCard">Ask a question →</button>
-            </div>
-          </div>
+          <div class="hero-journey-card"><div class="hero-top"><div class="hero-label"><span class="dot"></span> <span id="heroJourneyLabel">PF Transfer</span></div><div class="hero-ref" id="heroRef">PF-TRF-2026-08421</div></div><div class="hero-title" id="heroTitle">Verification in progress</div><div class="hero-status" id="heroStatus">Your current journey is being tracked here. We'll tell you what matters and whether you need to do anything.</div><div class="progress-track"><div class="progress-fill" id="dashProgressFill"></div></div><div class="progress-meta"><span id="heroProgressText">62% complete</span><span id="heroEstimate">Demo timeline</span></div><div class="hero-meta-row"><div class="hero-action-state"><span class="dot2"></span><span id="heroActionState">No action required</span></div><span class="demo-inline">Demo data</span></div><div style="margin-top:14px;display:flex;gap:9px;flex-wrap:wrap;"><button class="hero-btn" data-nav="journey">View journey →</button><button class="hero-btn" style="background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.16);" data-nav="status">Action center</button></div></div>
+          <div class="side-stack"><div class="ai-card"><div class="ai-card-head"><div class="ai-orb">✦</div><div class="t">PF Navigator is working for you</div></div><p id="aiSummaryText">I understood your current PF situation and turned it into a journey.</p><button class="ai-ask-btn" data-nav="ai-onboarding">Tell me what happened →</button></div><div class="card"><div class="ai-card-head" style="margin-bottom:10px;"><div class="t" style="font-size:13.5px;">Journey snapshot</div></div><div class="mini-timeline" id="dashboardMiniTimeline"></div></div></div>
         </div>
-
-        <div class="section-label">What do you want to do?</div>
-        <div class="quick-actions">
-          <button class="qa-btn" id="qaJobChange">
-            <div class="qa-icon" style="background:var(--blue-light); color:var(--blue);">⇄</div>
-            <div><div class="qa-title">Change of job</div><div class="qa-sub">Tell us what happened</div></div>
-          </button>
-          <button class="qa-btn" data-nav="docs">
-            <div class="qa-icon" style="background:#EBF5FF; color:var(--blue);">📄</div>
-            <div><div class="qa-title">Document check</div><div class="qa-sub">Verify readiness</div></div>
-          </button>
-          <button class="qa-btn" id="qaWithdraw">
-            <div class="qa-icon" style="background:var(--success-bg); color:var(--success);">₹</div>
-            <div><div class="qa-title">Withdraw PF</div><div class="qa-sub">Start a claim</div></div>
-          </button>
-          <button class="qa-btn" id="qaHelp">
-            <div class="qa-icon" style="background:var(--error-bg); color:var(--error);">?</div>
-            <div><div class="qa-title">I need help</div><div class="qa-sub">Ask the AI assistant</div></div>
-          </button>
-        </div>
+        <div class="action-intel"><div class="action-card safe" id="dashboardActionCard"><div class="action-head"><div class="action-state" id="dashboardActionState">● NO ACTION REQUIRED</div><div>Right now</div></div><div class="action-title" id="dashboardActionTitle">You're on track.</div><div class="action-body" id="dashboardActionBody">Your current journey is being monitored.</div><button class="action-link" data-nav="status">See action center →</button></div><div class="card" style="padding:18px 20px;"><div class="ai-card-head" style="margin-bottom:8px;"><div class="t" style="font-size:13.5px;">Why you're seeing this</div></div><p id="dashboardWhyText" style="font-size:13px;color:var(--text-muted);line-height:1.55;margin:0;"></p></div></div>
+        <div class="summary-grid"><div class="summary-card accent"><div class="summary-num" id="sumDone">2</div><div class="summary-label">Completed actions</div></div><div class="summary-card"><div class="summary-num" id="sumProgress">1</div><div class="summary-label">Action in progress</div></div><div class="summary-card"><div class="summary-num" id="sumRequired">0</div><div class="summary-label">Actions required</div></div><div class="summary-card"><div class="summary-num" id="sumSteps">5</div><div class="summary-label">Journey steps</div></div></div>
+        <div class="on-track"><div class="mark">✓</div><div><div class="t" id="onTrackTitle">You're on track</div><div class="s" id="onTrackSub">PF Navigator is tracking the journey for you.</div></div></div>
+        <div class="section-label spaced">What happened?</div><button class="qa-btn qa-feature" id="dashboardTellStory" style="width:100%;flex-direction:row;align-items:center;justify-content:space-between;padding:18px;"><div style="display:flex;align-items:center;gap:13px;"><div class="qa-icon" style="background:var(--blue-light);color:var(--blue);">✦</div><div><div class="qa-title" style="font-size:15px;">Tell us in your own words</div><div class="qa-sub" style="font-size:12px;">PF Navigator will understand the situation and build the right journey.</div></div></div><span style="font-size:20px;color:var(--blue);">→</span></button>
+        <div class="section-label">Quick actions</div><div class="quick-actions"><button class="qa-btn" id="qaJobChange"><div class="qa-icon" style="background:var(--blue-light);color:var(--blue);">⇄</div><div><div class="qa-title">Change of job</div><div class="qa-sub">Build a transfer journey</div></div></button><button class="qa-btn" id="qaWithdraw"><div class="qa-icon" style="background:var(--success-bg);color:var(--success);">₹</div><div><div class="qa-title">Withdraw PF</div><div class="qa-sub">Explore a claim flow</div></div></button><button class="qa-btn" data-nav="status"><div class="qa-icon" style="background:var(--warning-bg);color:var(--warning);">▤</div><div><div class="qa-title">Check status</div><div class="qa-sub">See where you are</div></div></button><button class="qa-btn" data-nav="document"><div class="qa-icon" style="background:#EEF0F7;color:#4A5A75;">▱</div><div><div class="qa-title">Do I need this document?</div><div class="qa-sub">Use the assistant</div></div></button></div>
       </section>
 
-      <!-- ---------- AI ONBOARDING: "TELL US WHAT HAPPENED" ---------- -->
-      <section class="view" id="view-ai-onboarding">
-        <div class="page-head">
-          <div class="eyebrow">AI-guided journey</div>
-          <div class="page-title">What happened?</div>
-          <div class="page-desc">Tell us in your own words. You don't need to know the PF terminology — we'll figure out what applies to you.</div>
-        </div>
-
-        <div class="chat-wrap">
-          <div class="chat-log" id="chatLog"></div>
-
-          <div class="composer" id="composerBox">
-            <textarea id="chatInput" placeholder="e.g. I changed my job last month and I don't know what I need to do with my PF..."></textarea>
-            <div class="composer-actions">
-              <button class="mic-btn" id="micBtn">🎤 Speak</button>
-              <button class="send-btn" id="sendBtn">Continue</button>
-            </div>
-          </div>
-        </div>
-      </section>
+      <!-- ---------- AI UNDERSTANDING ---------- -->
+      <section class="view" id="view-ai-onboarding"><div class="intake-shell"><div class="intake-card"><div class="intake-kicker">✦ AI-guided intake</div><div class="intake-title">What happened?</div><div class="intake-sub">Tell us in your own words. You don't need to know PF terminology — PF Navigator will identify the situation, the goal, and the journey that fits.</div><div class="intake-prompt"><span class="pulse-dot"></span> Your story</div><textarea id="chatInput" class="intake-textarea" placeholder="e.g. I changed my job two months ago and I'm not sure what happened to my PF..."></textarea><div class="intake-footer"><button class="speak-inline" id="micBtn">🎙 Speak instead</button><button class="understand-btn" id="sendBtn">Understand my situation →</button></div><div class="intake-note">🔒 Demo-only processing. No real EPFO submission or account change happens here.</div></div><div class="understanding-card" id="understandingCard"><div class="uc-head"><div><div class="uc-title">We think we understand</div><div class="uc-sub">Here's the decision PF Navigator is using for this demo.</div></div><div class="confidence">HIGH CONFIDENCE</div></div><div class="understanding-quote" id="understandingQuote"></div><div class="decision-grid" id="decisionGrid"></div><div class="journey-strip" id="journeyStrip"></div><div class="uc-actions"><button class="btn-dark" id="confirmSituationBtn" type="button">Yes, that's right →</button><button class="btn-secondary" id="editSituationBtn">That's not what I meant</button></div></div></div></section>
 
       <!-- ---------- PERSONALIZED JOURNEY ---------- -->
-      <section class="view" id="view-journey">
-        <div class="page-head">
-          <div class="eyebrow">Your PF journey</div>
-          <div class="page-title">Job change → PF transfer</div>
-          <div class="page-desc">Built from what you told us. This updates automatically as EPFO processes each step.</div>
-        </div>
-
-        <!-- AI Reasoning Visualization Banner -->
-        <div class="reasoning-box">
-          <div class="reasoning-title">✦ AI Recommendation Logic</div>
-          <ul class="reasoning-list">
-            <li>Detected job transition between registered UAN accounts.</li>
-            <li>Policy rule Section 57 applied: Auto-transfer triggers Form 13 online request.</li>
-            <li>Optimal action: Confirm Document Check to avoid EPFO claim rejection.</li>
-          </ul>
-        </div>
-
-        <div class="card">
-          <div class="journey-rail" id="journeyRail">
-            <div class="rail-step done">
-              <div class="rail-node">✓</div><div class="rail-line"></div>
-              <div class="rail-content"><div class="rail-code">STEP 01</div><div class="rail-title">Job change confirmed</div><div class="rail-desc">You told us you left ABC Technologies and joined TechNova Pvt. Ltd.</div></div>
-            </div>
-            <div class="rail-step done">
-              <div class="rail-node">✓</div><div class="rail-line"></div>
-              <div class="rail-content"><div class="rail-code">STEP 02</div><div class="rail-title">PF account identified</div><div class="rail-desc">Your new employer has issued a PF account linked to your UAN.</div></div>
-            </div>
-            <div class="rail-step current">
-              <div class="rail-node">●</div><div class="rail-line"></div>
-              <div class="rail-content"><div class="rail-code">STEP 03 · CURRENT</div><div class="rail-title">PF transfer — verification</div><div class="rail-desc">Your transfer request is being verified by your previous and current employer.</div></div>
-            </div>
-            <div class="rail-step pending">
-              <div class="rail-node">4</div><div class="rail-line"></div>
-              <div class="rail-content"><div class="rail-code">STEP 04</div><div class="rail-title">EPFO processing</div><div class="rail-desc">Once verified, EPFO transfers your balance to the new account.</div></div>
-            </div>
-            <div class="rail-step pending">
-              <div class="rail-node">5</div>
-              <div class="rail-content"><div class="rail-code">STEP 05</div><div class="rail-title">Completed</div><div class="rail-desc">Your full PF history is now consolidated under one account.</div></div>
-            </div>
-          </div>
-
-          <div class="journey-detail-grid">
-            <div class="detail-box now">
-              <div class="db-label">What you need to do</div>
-              <div class="db-body">Confirm your document readiness status to complete verification smoothly.</div>
-            </div>
-            <div class="detail-box next">
-              <div class="db-label">What happens next</div>
-              <div class="db-body">Once both employers confirm your details, your transfer moves to EPFO processing — typically 4–6 days.</div>
-            </div>
-          </div>
-
-          <div style="margin-top:20px; display:flex; gap:10px; flex-wrap:wrap;">
-            <button class="hero-btn" style="background:var(--navy); color:#fff;" data-nav="docs">Check Readiness →</button>
-            <button class="hero-btn" style="background:#fff; border:1.5px solid var(--border); color:var(--text);" data-nav="dashboard">Back to dashboard</button>
-          </div>
-        </div>
-      </section>
-
-      <!-- ---------- DOCUMENT CHECK FLOW ---------- -->
-      <section class="view" id="view-docs">
-        <div class="page-head">
-          <div class="eyebrow">Verification flow</div>
-          <div class="page-title">Document & Profile Readiness</div>
-          <div class="page-desc">AI has verified your credentials against EPFO standards to prevent claim rejections.</div>
-        </div>
-
-        <div class="card">
-          <div class="synthetic-tag">⚠ Synthetic Demo Validation Checks</div>
-          <div class="doc-checklist">
-            <div class="doc-item">
-              <div class="doc-info">
-                <span style="font-size:20px;">🆔</span>
-                <div>
-                  <div style="font-weight:700; font-size:14px;">Aadhaar & Name Matching</div>
-                  <div style="font-size:12.5px; color:var(--text-muted);">Exact match with EPFO UAN Database</div>
-                </div>
-              </div>
-              <span class="doc-status-badge verified">Verified</span>
-            </div>
-
-            <div class="doc-item">
-              <div class="doc-info">
-                <span style="font-size:20px;">🏦</span>
-                <div>
-                  <div style="font-weight:700; font-size:14px;">Bank Account & IFSC KYC</div>
-                  <div style="font-size:12.5px; color:var(--text-muted);">Digitally signed by Bank</div>
-                </div>
-              </div>
-              <span class="doc-status-badge verified">Verified</span>
-            </div>
-
-            <div class="doc-item">
-              <div class="doc-info">
-                <span style="font-size:20px;">📅</span>
-                <div>
-                  <div style="font-weight:700; font-size:14px;">Date of Exit (Previous Employer)</div>
-                  <div style="font-size:12.5px; color:var(--text-muted);">ABC Technologies updated exit record on portal</div>
-                </div>
-              </div>
-              <span class="doc-status-badge action">Action Recommended</span>
-            </div>
-          </div>
-
-          <div style="margin-top:20px; display:flex; gap:10px;">
-            <button class="hero-btn" style="background:var(--navy); color:#fff;" id="btnConfirmDocs">Confirm & Continue →</button>
-            <button class="hero-btn" style="background:#fff; border:1.5px solid var(--border); color:var(--text);" data-nav="dashboard">Back</button>
-          </div>
-        </div>
-      </section>
+      <section class="view" id="view-journey"><div class="page-head"><div class="eyebrow">Personalized journey</div><div class="page-title" id="journeyPageTitle">Job change → PF transfer</div><div class="page-desc" id="journeyPageDesc">Your path is generated from the situation you described.</div></div><div class="card"><div class="demo-badge" style="margin-bottom:16px;">Demo · Synthetic journey state</div><div class="journey-rail" id="journeyRail"></div><div class="action-intel" style="margin-top:22px;"><div class="action-card safe" id="journeyActionCard"><div class="action-head"><div class="action-state" id="journeyActionState">● NO ACTION REQUIRED</div></div><div class="action-title" id="journeyActionTitle">You're on track.</div><div class="action-body" id="journeyActionBody"></div><button class="action-link" data-nav="status">Open action center →</button></div><div class="card" style="background:var(--bg);border:none;padding:18px 20px;"><div class="ai-card-head" style="margin-bottom:8px;"><div class="t" style="font-size:13.5px;">What happens next</div></div><p id="journeyNextBody" style="font-size:13px;color:var(--text-muted);line-height:1.55;margin:0;"></p></div></div><div class="why-row"><div class="why-card"><div class="lbl">Why this journey</div><div class="body" id="journeyWhyBody"></div></div><div class="why-card alt"><div class="lbl">Information needed</div><div class="body" id="journeyInfoBody"></div></div></div><div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;"><button class="btn-dark" data-nav="status">Track status →</button><button class="btn-secondary" data-nav="dashboard">Back to dashboard</button></div></div></section>
 
       <!-- ---------- STATUS TRACKING ---------- -->
-      <section class="view" id="view-status">
-        <div class="page-head">
-          <div class="eyebrow">Track status</div>
-          <div class="page-title">Transfer request</div>
-        </div>
+      <section class="view" id="view-status"><div class="page-head"><div class="eyebrow">Track status</div><div class="page-title" id="statusPageTitle">Transfer request</div><div class="page-desc">A clear status, plain-language explanation, and next useful action.</div></div><div class="card"><div class="status-head-card"><div class="status-ref"><div class="lbl">Reference number</div><div class="val" id="statusRef">PF-TRF-2026-08421</div></div><div class="status-badge"><span class="s"></span><span id="statusBadgeText">EPFO processing</span></div></div><div class="journey-rail" id="statusRail" style="margin-bottom:4px;"></div><div class="why-row"><div class="why-card"><div class="lbl">What does this mean?</div><div class="body" id="statusMeaning"></div></div><div class="why-card alt"><div class="lbl">Why this matters</div><div class="body" id="statusMatters"></div></div></div><div class="action-intel"><div class="action-card safe" id="statusActionCard"><div class="action-head"><div class="action-state" id="statusActionState">● NO ACTION REQUIRED</div></div><div class="action-title" id="statusActionTitle">No action needed right now.</div><div class="action-body" id="statusActionBody"></div></div><div class="card" style="background:var(--bg);border:none;padding:18px 20px;"><div class="ai-card-head" style="margin-bottom:8px;"><div class="t" style="font-size:13.5px;">Demo status note</div></div><p style="font-size:12.5px;color:var(--text-muted);line-height:1.55;margin:0;">This status is illustrative synthetic data for the prototype and is not a live EPFO connection.</p></div></div></div></section>
 
-        <div class="card">
-          <div class="status-head-card">
-            <div class="status-ref">
-              <div class="lbl">Reference number</div>
-              <div class="val">PF-TRF-2026-08421</div>
-            </div>
-            <div class="status-badge"><span class="s"></span> EPFO processing</div>
-          </div>
-
-          <div class="journey-rail" style="margin-bottom:4px;">
-            <div class="rail-step done"><div class="rail-node">✓</div><div class="rail-line"></div>
-              <div class="rail-content"><div class="rail-code">08 JUL 2026</div><div class="rail-title">Submitted</div><div class="rail-desc">Transfer request filed with EPFO.</div></div></div>
-            <div class="rail-step done"><div class="rail-node">✓</div><div class="rail-line"></div>
-              <div class="rail-content"><div class="rail-code">14 JUL 2026</div><div class="rail-title">Employer verification</div><div class="rail-desc">Confirmed by ABC Technologies and TechNova Pvt. Ltd.</div></div></div>
-            <div class="rail-step current"><div class="rail-node">●</div><div class="rail-line"></div>
-              <div class="rail-content"><div class="rail-code">IN PROGRESS</div><div class="rail-title">EPFO processing</div><div class="rail-desc">Your request has reached the processing stage.</div></div></div>
-            <div class="rail-step pending"><div class="rail-node">4</div>
-              <div class="rail-content"><div class="rail-code">PENDING</div><div class="rail-title">Completed</div><div class="rail-desc">Funds consolidated into your current PF account.</div></div></div>
-          </div>
-
-          <div class="journey-detail-grid">
-            <div class="detail-box now">
-              <div class="db-label">What does this mean?</div>
-              <div class="db-body">Your request has reached the processing stage. No action is currently required from you.</div>
-            </div>
-            <div class="detail-box next">
-              <div class="db-label">Next expected action</div>
-              <div class="db-body">Wait for EPFO processing to complete — we'll notify you the moment it does.</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ---------- QUICK ACTION: WITHDRAW ---------- -->
+      <!-- ---------- QUICK ACTION: WITHDRAW (generic action flow) ---------- -->
       <section class="view" id="view-action">
         <div class="page-head">
           <div class="eyebrow" id="actionEyebrow">Quick action</div>
           <div class="page-title" id="actionTitle">Withdraw PF</div>
           <div class="page-desc" id="actionDesc">A focused, guided flow — no forms full of unfamiliar terms.</div>
+        </div>
+
+        <div class="flow-steps">
+          <div class="flow-step-pill done">✓ Eligibility</div>
+          <div class="flow-step-pill active">Review details</div>
+          <div class="flow-step-pill">Confirm</div>
+          <div class="flow-step-pill">Submitted</div>
         </div>
 
         <div class="card">
@@ -915,11 +672,17 @@
         </div>
       </section>
 
+      <!-- ---------- ACTION CENTER ---------- -->
+      <section class="view" id="view-action-center"><div class="page-head"><div class="eyebrow">Action intelligence</div><div class="page-title">What do I need to do?</div><div class="page-desc">PF Navigator separates status information from actions so you can immediately see whether something needs attention.</div></div><div class="action-intel"><div class="action-card safe" id="centerPrimaryCard"><div class="action-head"><div class="action-state" id="centerState">● NO ACTION REQUIRED</div><div id="centerPriority">Current</div></div><div class="action-title" id="centerTitle">You're on track.</div><div class="action-body" id="centerBody"></div><button class="action-link" id="centerActionBtn">Continue tracking →</button></div><div class="card"><div class="ai-card-head" style="margin-bottom:8px;"><div class="t" style="font-size:13.5px;">How PF Navigator works</div></div><div class="mini-timeline"><div class="mini-step"><div class="mini-dot done"></div><div><div class="mt-title">Understands your situation</div><div class="mt-sub">classification</div></div></div><div class="mini-step"><div class="mini-dot done"></div><div><div class="mt-title">Builds your journey</div><div class="mt-sub">personalized path</div></div></div><div class="mini-step"><div class="mini-dot current"></div><div><div class="mt-title">Checks for action</div><div class="mt-sub">attention layer</div></div></div></div></div></div><div class="summary-grid"><div class="summary-card"><div class="summary-num" id="centerDone">2</div><div class="summary-label">Completed</div></div><div class="summary-card"><div class="summary-num" id="centerProgress">1</div><div class="summary-label">In progress</div></div><div class="summary-card"><div class="summary-num" id="centerRequired">0</div><div class="summary-label">Action required</div></div><div class="summary-card"><div class="summary-num" id="centerInfo">3</div><div class="summary-label">Info items</div></div></div></section>
+
+      <!-- ---------- DOCUMENT ASSISTANT ---------- -->
+      <section class="view" id="view-document"><div class="page-head"><div class="eyebrow">Document / information assistant</div><div class="page-title">Do I need this document?</div><div class="page-desc">Pick a synthetic sample and see why it might matter, what it recognized, and what is missing.</div></div><div class="document-layout"><div class="doc-picker"><div class="ai-card-head"><div class="ai-orb">▱</div><div class="t">Choose a sample</div></div><div class="doc-options"><button class="doc-option active" data-doc="employment"><div class="t">Employment certificate</div><div class="s">Synthetic sample · previous employment</div></button><button class="doc-option" data-doc="bank"><div class="t">Bank detail proof</div><div class="s">Synthetic sample · claim verification</div></button><button class="doc-option" data-doc="uan"><div class="t">Identity / UAN information</div><div class="s">Synthetic sample · UAN recovery</div></button></div><div class="doc-footnote">No real document is uploaded or stored in this demo. The result panel is illustrative.</div></div><div class="doc-result" id="docResult"></div></div></section>
+
       <!-- ---------- PROFILE ---------- -->
       <section class="view" id="view-profile">
         <div class="page-head">
           <div class="eyebrow">My profile</div>
-          <div class="page-title">Profile & information</div>
+          <div class="page-title">Profile</div>
         </div>
 
         <div class="card" style="max-width:520px;">
@@ -936,7 +699,7 @@
             <div class="info-row"><span class="k">PF Member ID</span><span class="v">••••••••7890</span></div>
             <div class="info-row"><span class="k">UAN</span><span class="v">•••• •••• 4471</span></div>
           </div>
-          <div class="synthetic-tag" style="margin-top:18px;">⚠ All information shown is synthetic demo data</div>
+          <div class="demo-badge" style="margin-top:18px;">Demo · Synthetic information</div>
           <button class="hero-btn" style="background:#fff; border:1.5px solid var(--border); color:var(--text); margin-top:6px;" id="signOutFromProfile">Sign out</button>
         </div>
       </section>
@@ -948,7 +711,6 @@
   <nav class="bottom-nav" id="bottomNav">
     <button class="bn-btn active" data-nav="dashboard"><span class="ic">⌂</span>Home</button>
     <button class="bn-btn" data-nav="journey"><span class="ic">◈</span>Journey</button>
-    <button class="bn-btn" data-nav="docs"><span class="ic">📄</span>Docs</button>
     <button class="bn-btn" data-nav="status"><span class="ic">▤</span>Status</button>
     <button class="bn-btn" data-nav="profile"><span class="ic">◔</span>Profile</button>
   </nav>
@@ -998,301 +760,98 @@
 <script>
 (function(){
   "use strict";
+  const state={scenario:'job-change',story:"I changed my job two months ago and I'm not sure what happened to my PF.",confirmed:true};
+  const SC={
+    'job-change':{label:'PF Transfer',ref:'PF-TRF-2026-08421',title:'Verification in progress',progress:62,estimate:'Demo timeline',action:'none',actionTitle:"You're on track.",actionBody:'Your current PF transfer journey is being tracked. Nothing needs to be submitted from this screen.',situation:'Job change',goal:'Transfer previous PF',steps:['Previous employment','New employment','PF transfer','Verification','Completion'],journeyTitle:'Job change → PF transfer',desc:'Your path is based on a change of employer and the goal of carrying your previous PF journey forward.',journey:[['done','STEP 01','Job change understood','Your story indicates a change of employer.'],['done','STEP 02','Employment context identified','Previous and current employment context is represented in the demo.'],['current','STEP 03 · CURRENT','PF transfer — verification','The transfer stage is the current point in this synthetic journey.'],['pending','STEP 04','Processing','The request moves to the next stage in the demo.'],['pending','STEP 05','Completed','The journey finishes when the tracked transfer is complete.']],status:[['done','08 JUL 2026','Submitted','Transfer request shown as filed in the synthetic demo.'],['done','14 JUL 2026','Employer verification','Verification is shown as complete in the demo state.'],['current','IN PROGRESS','Processing','The current request is shown as processing.'],['pending','PENDING','Completed','Completion is the next state.']],why:'PF Navigator classified your story as a job-change scenario and matched it to a transfer journey.',info:'3 demo information items shape this journey: employment context, PF account context, and transfer state.',next:'The next useful event is completion of the current verification/processing stage in the synthetic timeline.',meaning:'Your tracked request has reached the current processing stage in the prototype.',matters:'The point is not only translating a status label; it tells you whether to wait or act.',summary:[2,1,0,5]},
+    'withdrawal':{label:'PF Withdrawal',ref:'PF-WDR-2026-01942',title:'Review details',progress:48,estimate:'Demo eligibility flow',action:'warn',actionTitle:'Review before continuing.',actionBody:'This path requires your attention: check the eligibility and information shown before the demo claim can move forward.',situation:'Employment ended',goal:'Explore PF withdrawal',steps:['Employment ended','Eligibility','Information needed','Claim','Processing','Complete'],journeyTitle:'Employment ended → PF withdrawal',desc:'This journey is designed around a withdrawal goal rather than a transfer.',journey:[['done','STEP 01','Employment ended','Your story indicates employment has ended.'],['current','STEP 02 · CURRENT','Eligibility review','This demo asks you to review the eligibility state before continuing.'],['pending','STEP 03','Information needed','Required information is surfaced before a claim step.'],['pending','STEP 04','Claim prepared','The claim remains a demo-only prepared state.'],['pending','STEP 05','Processing','The synthetic request enters processing.'],['pending','STEP 06','Completed','The journey closes at completion.']],status:[['done','STEP 01','Employment ended','Employment end is represented in the synthetic flow.'],['current','CURRENT','Eligibility review','Review is the action currently requiring attention.'],['pending','PENDING','Claim','The claim step is not yet active.'],['pending','PENDING','Completed','Completion follows processing.']],why:'PF Navigator recognized a withdrawal intent, so the journey emphasizes eligibility and information before claim preparation.',info:'3 demo information items are surfaced before moving forward.',next:'Review the synthetic eligibility information, then continue through the prepared demo claim steps.',meaning:'This journey is paused at an eligibility/review point rather than at a status-only tracking stage.',matters:'The action layer tells you there is something to review before this journey can progress.',summary:[1,1,1,6]},
+    'uan':{label:'UAN Recovery',ref:'PF-UAN-2026-00471',title:'Information needed',progress:35,estimate:'Demo recovery flow',action:'warn',actionTitle:'A little information is needed.',actionBody:'This demo journey needs identity information before the UAN recovery path can continue.',situation:'UAN help',goal:'Recover UAN information',steps:['Identity information','UAN recovery','Verification','UAN found'],journeyTitle:'UAN help → recovery',desc:'A focused recovery path appears when the user cannot identify their UAN.',journey:[['done','STEP 01','Identity information','Start with the information needed to identify the account.'],['current','STEP 02 · CURRENT','UAN recovery','This is the current step in the demo journey.'],['pending','STEP 03','Verification','The submitted information is checked in the synthetic flow.'],['pending','STEP 04','UAN found','The journey completes when the UAN is identified.']],status:[['done','STEP 01','Identity information','Identity information is the first requirement in the demo.'],['current','CURRENT','UAN recovery','Recovery is the current stage.'],['pending','PENDING','Verification','Verification follows recovery.'],['pending','PENDING','UAN found','Completion occurs when the identifier is found.']],why:'PF Navigator recognized a UAN-help request, not a transfer or withdrawal.',info:'The demo surfaces identity information as the first missing input.',next:'Provide the required identity information in a real implementation; this demo simply visualizes the flow.',meaning:'The journey is waiting for the information needed to proceed with recovery.',matters:'Instead of returning only a UAN definition, PF Navigator gives the user a path to a useful outcome.',summary:[1,1,1,4]}
+  };
+  const views=document.querySelectorAll('.view'),navs=document.querySelectorAll('.side-nav button[data-nav], .bn-btn[data-nav]');
+  function showView(id){views.forEach(v=>v.classList.toggle('active',v.id==='view-'+id));navs.forEach(b=>b.classList.toggle('active',b.dataset.nav===id));window.scrollTo({top:0,behavior:'smooth'});if(id==='dashboard')renderDashboard();if(id==='journey')renderJourney();if(id==='status')renderStatus();if(id==='action-center')renderActionCenter();}
+  document.querySelectorAll('[data-nav]').forEach(el=>el.addEventListener('click',()=>showView(el.dataset.nav)));
+  const loginForm=document.getElementById('loginForm'),loginError=document.getElementById('loginError'),appShell=document.getElementById('appShell'),loginView=document.getElementById('view-login'),fabAI=document.getElementById('fabAI');
+  document.getElementById('fillDemo').addEventListener('click',()=>{loginEmail.value='demo@pfnavigator.in';loginPass.value='PF1234';loginError.classList.remove('show');});
+  const loginEmail=document.getElementById('loginEmail'),loginPass=document.getElementById('loginPass');
+  loginForm.addEventListener('submit',e=>{e.preventDefault();if(loginEmail.value.trim().toLowerCase()==='demo@pfnavigator.in'&&loginPass.value==='PF1234'){loginView.classList.remove('active');loginView.style.display='none';appShell.style.display='flex';fabAI.classList.remove('hidden');showView('dashboard');setTimeout(()=>showToast('Welcome back, Mohammed. PF Navigator is ready.'),500);}else{loginError.classList.add('show');loginForm.style.animation='none';requestAnimationFrame(()=>loginForm.style.animation='shake .35s');}});
+  const shakeStyle=document.createElement('style');shakeStyle.textContent='@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}';document.head.appendChild(shakeStyle);
+  function doLogout(){appShell.style.display='none';fabAI.classList.add('hidden');drawerOverlay.classList.remove('open');document.getElementById('confirmModal').classList.remove('open');loginView.style.display='flex';loginView.classList.add('active');loginPass.value='';resetIntake();}
+  document.getElementById('logoutBtnDesktop').addEventListener('click',doLogout);document.getElementById('logoutBtnMobile').addEventListener('click',doLogout);document.getElementById('signOutFromProfile').addEventListener('click',doLogout);
+  const toast=document.getElementById('toast');let toastTimer;function showToast(msg){toast.textContent='🔔 '+msg;toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),3300);}
+  const chatInput=document.getElementById('chatInput'),sendBtn=document.getElementById('sendBtn'),micBtn=document.getElementById('micBtn'),understandingCard=document.getElementById('understandingCard');
+  function resetIntake(){state.story='';state.confirmed=false;chatInput.value='';understandingCard.classList.remove('show');}
+  function seedStory(){chatInput.value=state.story||"I changed my job two months ago and I'm not sure what happened to my PF.";understandingCard.classList.remove('show');setTimeout(()=>chatInput.focus(),50);}
+  function prepareScenario(key){state.scenario=key;state.story='';state.confirmed=key!=='job-change';renderAll();}
+  function classify(t){const l=t.toLowerCase();if(/uan|universal account|forgot.*number|don't know.*uan|do not know.*uan/.test(l))return'uan';if(/withdraw|take.*pf|claim.*pf|leave.*job.*money|employment ended|left my job.*withdraw/.test(l))return'withdrawal';return'job-change';}
+  function renderUnderstanding(){const d=SC[state.scenario];document.getElementById('understandingQuote').textContent=state.scenario==='job-change'?'You changed employers and want to understand what should happen to your previous PF.':state.scenario==='withdrawal'?'You want to explore what happens after employment ends and whether you can move toward a PF withdrawal.':'You need help identifying or recovering your UAN information.';document.getElementById('decisionGrid').innerHTML=[['Situation',d.situation],['Goal',d.goal],['Journey identified',d.steps.length+' steps'],['Information needed',Math.max(1,d.summary[3]-1)+' items']].map(x=>'<div class="decision-cell"><div class="lbl">'+x[0]+'</div><div class="val">'+x[1]+'</div></div>').join('');document.getElementById('journeyStrip').innerHTML=d.steps.map((x,i)=>'<span class="tag '+(i<2?'done':i===2?'active':'')+'">'+(i<2?'✓ ':'')+x+'</span>').join('');understandingCard.classList.add('show');}
+  function handleIntake(){const text=chatInput.value.trim();if(!text)return;state.story=text;state.scenario=classify(text);state.confirmed=false;renderUnderstanding();showToast('Situation identified. Please confirm the journey.');}
+  sendBtn.addEventListener('click',handleIntake);chatInput.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();handleIntake();}});micBtn.addEventListener('click',()=>{chatInput.value="I changed my job two months ago and I'm not sure what happened to my PF.";chatInput.focus();showToast('Demo voice input inserted.');});
+  document.getElementById('editSituationBtn').addEventListener('click',()=>{understandingCard.classList.remove('show');chatInput.focus();});
+  document.getElementById('confirmSituationBtn').addEventListener('click',()=>{state.confirmed=true;renderAll();showView('journey');showToast('Perfect. Your personalized journey is ready.');});
+  function renderDashboard(){const d=SC[state.scenario];document.getElementById('heroJourneyLabel').textContent=d.label;document.getElementById('heroRef').textContent=d.ref;document.getElementById('heroTitle').textContent=d.title;document.getElementById('heroStatus').textContent=d.action==='none'?d.actionBody:'PF Navigator has identified the next point that needs your attention in this demo journey.';document.getElementById('dashProgressFill').style.width=d.progress+'%';document.getElementById('heroProgressText').textContent=d.progress+'% complete';document.getElementById('heroEstimate').textContent=d.estimate;document.getElementById('heroActionState').textContent=d.action==='none'?'No action required':'Action required';document.getElementById('aiSummaryText').textContent='PF Navigator understands the situation, matches it to a journey, and keeps the next decision visible — instead of making you decode a portal status page.';const card=document.getElementById('dashboardActionCard');card.className='action-card '+(d.action==='none'?'safe':'warn');document.getElementById('dashboardActionState').textContent=d.action==='none'?'● NO ACTION REQUIRED':'● ACTION REQUIRED';document.getElementById('dashboardActionTitle').textContent=d.actionTitle;document.getElementById('dashboardActionBody').textContent=d.actionBody;document.getElementById('dashboardWhyText').textContent=d.why;document.getElementById('sumDone').textContent=d.summary[0];document.getElementById('sumProgress').textContent=d.summary[1];document.getElementById('sumRequired').textContent=d.summary[2];document.getElementById('sumSteps').textContent=d.summary[3];document.getElementById('centerDone').textContent=d.summary[0];document.getElementById('centerProgress').textContent=d.summary[1];document.getElementById('centerRequired').textContent=d.summary[2];document.getElementById('centerInfo').textContent=Math.max(1,d.summary[3]-1);document.getElementById('onTrackTitle').textContent=d.action==='none'?"You're on track.":'Your next action is visible';document.getElementById('onTrackSub').textContent=d.action==='none'?'PF Navigator is tracking the journey for you.':'PF Navigator is showing exactly what needs your attention.';document.getElementById('dashboardMiniTimeline').innerHTML=d.journey.slice(0,4).map(x=>'<div class="mini-step"><div class="mini-dot '+x[0]+'"></div><div><div class="mt-title" '+(x[0]==='pending'?'style="color:var(--text-faint)"':'')+'>'+x[2]+'</div><div class="mt-sub">'+x[1]+'</div></div></div>').join('');}
+  function renderJourney(){const d=SC[state.scenario];document.getElementById('journeyPageTitle').textContent=d.journeyTitle;document.getElementById('journeyPageDesc').textContent=d.desc;document.getElementById('journeyRail').innerHTML=d.journey.map((x,i)=>'<div class="rail-step '+x[0]+'"><div class="rail-node">'+(x[0]==='done'?'✓':x[0]==='current'?'●':i+1)+'</div>'+(i<d.journey.length-1?'<div class="rail-line"></div>':'')+'<div class="rail-content"><div class="rail-code">'+x[1]+'</div><div class="rail-title">'+x[2]+'</div><div class="rail-desc">'+x[3]+'</div></div></div>').join('');const ac=document.getElementById('journeyActionCard');ac.className='action-card '+(d.action==='none'?'safe':'warn');document.getElementById('journeyActionState').textContent=d.action==='none'?'● NO ACTION REQUIRED':'● ACTION REQUIRED';document.getElementById('journeyActionTitle').textContent=d.actionTitle;document.getElementById('journeyActionBody').textContent=d.actionBody;document.getElementById('journeyNextBody').textContent=d.next;document.getElementById('journeyWhyBody').textContent=d.why;document.getElementById('journeyInfoBody').textContent=d.info;}
+  function renderStatus(){const d=SC[state.scenario];document.getElementById('statusPageTitle').textContent=d.label;document.getElementById('statusRef').textContent=d.ref;document.getElementById('statusBadgeText').textContent=d.title;document.getElementById('statusRail').innerHTML=d.status.map((x,i)=>'<div class="rail-step '+x[0]+'"><div class="rail-node">'+(x[0]==='done'?'✓':x[0]==='current'?'●':i+1)+'</div>'+(i<d.status.length-1?'<div class="rail-line"></div>':'')+'<div class="rail-content"><div class="rail-code">'+x[1]+'</div><div class="rail-title">'+x[2]+'</div><div class="rail-desc">'+x[3]+'</div></div></div>').join('');document.getElementById('statusMeaning').textContent=d.meaning;document.getElementById('statusMatters').textContent=d.matters;const ac=document.getElementById('statusActionCard');ac.className='action-card '+(d.action==='none'?'safe':'warn');document.getElementById('statusActionState').textContent=d.action==='none'?'● NO ACTION REQUIRED':'● ACTION REQUIRED';document.getElementById('statusActionTitle').textContent=d.action==='none'?'No action needed right now.':'Review the next step before continuing.';document.getElementById('statusActionBody').textContent=d.action==='none'?'Keep tracking here; the next state will appear in your journey.':d.actionBody;}
+  function renderActionCenter(){const d=SC[state.scenario];const card=document.getElementById('centerPrimaryCard');card.className='action-card '+(d.action==='none'?'safe':'warn');document.getElementById('centerState').textContent=d.action==='none'?'● NO ACTION REQUIRED':'● ACTION REQUIRED';document.getElementById('centerTitle').textContent=d.actionTitle;document.getElementById('centerBody').textContent=d.actionBody;document.getElementById('centerDone').textContent=d.summary[0];document.getElementById('centerProgress').textContent=d.summary[1];document.getElementById('centerRequired').textContent=d.summary[2];document.getElementById('centerInfo').textContent=Math.max(1,d.summary[3]-1);document.getElementById('centerActionBtn').onclick=()=>{if(d.action==='none')showView('journey');else if(state.scenario==='withdrawal')showView('action');else showView('document');};}
+  document.getElementById('qaJobChange').addEventListener('click',()=>{prepareScenario('job-change');showView('ai-onboarding');seedStory();});document.getElementById('dashboardTellStory').addEventListener('click',()=>{prepareScenario('job-change');showView('ai-onboarding');});document.getElementById('qaWithdraw').addEventListener('click',()=>{prepareScenario('withdrawal');showView('journey');});document.getElementById('qaHelp').addEventListener('click',()=>openDrawer());document.getElementById('openDrawerFromCard')?.addEventListener('click',openDrawer);
+  document.getElementById('actionContinueBtn').addEventListener('click',()=>document.getElementById('confirmModal').classList.add('open'));document.getElementById('modalCancel').addEventListener('click',()=>document.getElementById('confirmModal').classList.remove('open'));document.getElementById('modalContinue').addEventListener('click',()=>{document.getElementById('confirmModal').classList.remove('open');showToast('Demo action recorded. No real request was submitted.');showView('action-center');});
+  const docData={employment:{title:'Employment certificate',why:'This document may help verify previous employment details in a real workflow.',found:['Employer name','Employment dates'],missing:['PF member ID']},bank:{title:'Bank detail proof',why:'This sample may help verify account information before a claim flow advances.',found:['Account-holder name'],missing:['Account number confirmation']},uan:{title:'Identity / UAN information',why:'This sample may help support a UAN recovery flow by identifying the account holder.',found:['Name / identity context'],missing:['UAN or supporting identifier']}};
+  function renderDoc(key){const d=docData[key];document.querySelectorAll('.doc-option').forEach(b=>b.classList.toggle('active',b.dataset.doc===key));document.getElementById('docResult').innerHTML='<div class="doc-status">✓ Document recognized</div><h3>'+d.title+'</h3><p><strong>Why might this be needed?</strong><br>'+d.why+'</p><div style="font-size:11px;font-weight:800;color:var(--text-faint);text-transform:uppercase;letter-spacing:.05em;">Information found</div><div class="doc-list">'+d.found.map(x=>'<div class="doc-item"><span class="ok">✓</span>'+x+'</div>').join('')+'</div><div style="font-size:11px;font-weight:800;color:var(--text-faint);text-transform:uppercase;letter-spacing:.05em;">Missing / check</div><div class="doc-list">'+d.missing.map(x=>'<div class="doc-item"><span class="miss">⚠</span>'+x+'</div>').join('')+'</div><button class="btn-dark" id="docContinueBtn">Continue →</button><div class="doc-footnote">Synthetic demo interpretation only. A real implementation would connect this step to document extraction and validation services.</div>';document.getElementById('docContinueBtn').onclick=()=>{showToast('Document step prepared for the demo.');showView('action-center');};}
+  document.querySelectorAll('.doc-option').forEach(b=>b.addEventListener('click',()=>renderDoc(b.dataset.doc)));
+  const drawerOverlay=document.getElementById('drawerOverlay'),drawerBody=document.getElementById('drawerBody'),drawerInput=document.getElementById('drawerInput');function openDrawer(){drawerOverlay.classList.add('open');drawerInput.focus();}fabAI.addEventListener('click',openDrawer);document.getElementById('drawerClose').addEventListener('click',()=>drawerOverlay.classList.remove('open'));drawerOverlay.addEventListener('click',e=>{if(e.target===drawerOverlay)drawerOverlay.classList.remove('open');});document.querySelectorAll('.dsug').forEach(btn=>btn.addEventListener('click',()=>drawerAsk(btn.dataset.q)));document.getElementById('drawerSend').addEventListener('click',()=>{const v=drawerInput.value.trim();if(v){drawerAsk(v);drawerInput.value='';}});drawerInput.addEventListener('keydown',e=>{if(e.key==='Enter'){const v=drawerInput.value.trim();if(v){drawerAsk(v);drawerInput.value='';}}});
+  function drawerAddMsg(who,html){const w=document.createElement('div');w.className='msg '+who;w.innerHTML='<div class="avatar">'+(who==='ai'?'✦':'MS')+'</div><div class="bubble">'+html+'</div>';drawerBody.appendChild(w);drawerBody.scrollTop=drawerBody.scrollHeight;}
+  function drawerAsk(q){drawerAddMsg('user',escapeHtml(q));const t=document.createElement('div');t.className='msg ai';t.innerHTML='<div class="avatar">✦</div><div class="bubble"><span class="typing-dots"><span></span><span></span><span></span></span></div>';drawerBody.appendChild(t);setTimeout(()=>{t.remove();const l=q.toLowerCase();let r;if(l.includes('transfer'))r='Your demo transfer is in the processing journey. I can take you to the Journey or Status view.';else if(l.includes('withdraw'))r='I identified a withdrawal scenario. The Action Center will show what needs attention before continuing.';else if(l.includes('uan'))r='I identified a UAN-help scenario. Use What happened? and describe that you need help finding your UAN.';else if(l.includes('document'))r='Open the Document Assistant to see why a sample document might matter and what information is missing.';else r='I can turn that into a PF journey. Use What happened? and describe the situation in your own words.';drawerAddMsg('ai',r);},650);}
+  function escapeHtml(str){const d=document.createElement('div');d.textContent=str;return d.innerHTML;}
+  function renderAll(){renderDashboard();renderJourney();renderStatus();renderActionCenter();renderDoc('employment');}
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'){drawerOverlay.classList.remove('open');document.getElementById('confirmModal').classList.remove('open');}});
+  renderAll();
+})();
+</script>
 
-  // ---------- Navigation ----------
-  const views = document.querySelectorAll('.view');
-  function showView(id){
-    views.forEach(v => v.classList.toggle('active', v.id === 'view-' + id));
-    document.querySelectorAll('.side-nav button[data-nav]').forEach(b=>{
-      b.classList.toggle('active', b.dataset.nav === id);
+<script>
+(function(){
+  window.pfSafeShowView = function(id){
+    document.querySelectorAll('.view').forEach(function(v){
+      v.classList.toggle('active', v.id === 'view-' + id);
     });
-    document.querySelectorAll('.bn-btn[data-nav]').forEach(b=>{
+    document.querySelectorAll('[data-nav]').forEach(function(b){
       b.classList.toggle('active', b.dataset.nav === id);
     });
     window.scrollTo({top:0, behavior:'smooth'});
-    if(id === 'dashboard'){
-      requestAnimationFrame(()=>{ 
-        const fill = document.getElementById('dashProgressFill');
-        if(fill) fill.style.width = '62%'; 
-      });
-    }
-  }
-  document.querySelectorAll('[data-nav]').forEach(el=>{
-    el.addEventListener('click', ()=> showView(el.dataset.nav));
-  });
-
-  // ---------- Login ----------
-  const loginForm = document.getElementById('loginForm');
-  const loginError = document.getElementById('loginError');
-  const appShell = document.getElementById('appShell');
-  const loginView = document.getElementById('view-login');
-  const fabAI = document.getElementById('fabAI');
-
-  document.getElementById('fillDemo').addEventListener('click', ()=>{
-    document.getElementById('loginEmail').value = 'demo@pfnavigator.in';
-    document.getElementById('loginPass').value = 'PF1234';
-    loginError.classList.remove('show');
-  });
-
-  loginForm.addEventListener('submit', (e)=>{
-    e.preventDefault();
-    const email = document.getElementById('loginEmail').value.trim().toLowerCase();
-    const pass = document.getElementById('loginPass').value;
-    if(email === 'demo@pfnavigator.in' && pass === 'PF1234'){
-      loginView.classList.remove('active');
-      loginView.style.display = 'none';
-      appShell.style.display = 'flex';
-      fabAI.classList.remove('hidden');
-      showView('dashboard');
-      setTimeout(()=> showToast('Welcome back, Mohammed. 1 action item pending.'), 700);
-    } else {
-      loginError.classList.add('show');
-      loginForm.style.animation = 'none';
-      requestAnimationFrame(()=>{ loginForm.style.animation = 'shake .35s'; });
-    }
-  });
-
-  const shakeStyle = document.createElement('style');
-  shakeStyle.textContent = `@keyframes shake{0%,100%{transform:translateX(0);}20%{transform:translateX(-6px);}40%{transform:translateX(6px);}60%{transform:translateX(-4px);}80%{transform:translateX(4px);}}`;
-  document.head.appendChild(shakeStyle);
-
-  function doLogout(){
-    appShell.style.display = 'none';
-    fabAI.classList.add('hidden');
-    document.getElementById('drawerOverlay').classList.remove('open');
-    loginView.style.display = 'flex';
-    loginView.classList.add('active');
-    document.getElementById('loginPass').value = '';
-    resetChat();
-  }
-
-  // Safe listeners using optional chaining
-  document.getElementById('logoutBtnDesktop')?.addEventListener('click', doLogout);
-  document.getElementById('logoutBtnMobile')?.addEventListener('click', doLogout);
-  document.getElementById('signOutFromProfile')?.addEventListener('click', doLogout);
-
-  // ---------- Toast ----------
-  const toast = document.getElementById('toast');
-  let toastTimer;
-  function showToast(msg){
-    toast.textContent = '🔔 ' + msg;
-    toast.classList.add('show');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(()=> toast.classList.remove('show'), 3800);
-  }
-
-  // ---------- Document Check Handlers ----------
-  document.getElementById('btnConfirmDocs')?.addEventListener('click', ()=>{
-    showToast('Document check confirmed! Verification passed.');
-    showView('status');
-  });
-
-  // ---------- Quick actions ----------
-  document.getElementById('qaJobChange').addEventListener('click', ()=>{ showView('ai-onboarding'); });
-  document.getElementById('qaHelp').addEventListener('click', ()=> openDrawer());
-  document.getElementById('openDrawerFromCard').addEventListener('click', ()=> openDrawer());
-
-  document.getElementById('qaWithdraw').addEventListener('click', ()=>{
-    document.getElementById('actionEyebrow').textContent = 'Quick action';
-    document.getElementById('actionTitle').textContent = 'Withdraw PF';
-    document.getElementById('actionDesc').textContent = 'A focused, guided flow — no forms full of unfamiliar terms.';
-    showView('action');
-  });
-
-  document.getElementById('actionContinueBtn').addEventListener('click', ()=>{
-    document.getElementById('confirmModal').classList.add('open');
-  });
-  document.getElementById('modalCancel').addEventListener('click', ()=>{
-    document.getElementById('confirmModal').classList.remove('open');
-  });
-  document.getElementById('modalContinue').addEventListener('click', ()=>{
-    document.getElementById('confirmModal').classList.remove('open');
-    showToast('Withdrawal request prepared. (Demo — nothing was submitted.)');
-    showView('dashboard');
-  });
-
-  // ---------- AI onboarding chat flow ----------
-  const chatLog = document.getElementById('chatLog');
-  const chatInput = document.getElementById('chatInput');
-  const sendBtn = document.getElementById('sendBtn');
-  const composerBox = document.getElementById('composerBox');
-  let chatStage = 0;
-
-  function resetChat(){
-    chatStage = 0;
-    chatLog.innerHTML = '';
-    chatInput.value = '';
-    composerBox.style.display = 'flex';
-    chatInput.placeholder = "e.g. I changed my job last month and I don't know what I need to do with my PF...";
-  }
-
-  function addMsg(who, html){
-    const wrap = document.createElement('div');
-    wrap.className = 'msg ' + who;
-    wrap.innerHTML = `<div class="avatar">${who==='ai'?'✦':'MS'}</div><div class="bubble">${html}</div>`;
-    chatLog.appendChild(wrap);
-    chatLog.scrollTop = chatLog.scrollHeight;
-    window.scrollTo({top: document.body.scrollHeight, behavior:'smooth'});
-    return wrap;
-  }
-
-  function addTyping(){
-    const wrap = document.createElement('div');
-    wrap.className = 'msg ai';
-    wrap.id = 'typingBubble';
-    wrap.innerHTML = `<div class="avatar">✦</div><div class="bubble"><span class="typing-dots"><span></span><span></span><span></span></span></div>`;
-    chatLog.appendChild(wrap);
-    chatLog.scrollTop = chatLog.scrollHeight;
-    return wrap;
-  }
-
-  sendBtn.addEventListener('click', handleSend);
-  chatInput.addEventListener('keydown', (e)=>{
-    if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); handleSend(); }
-  });
-  document.getElementById('micBtn').addEventListener('click', ()=>{
-    chatInput.value = "I changed my job last month and I don't know what I need to do with my PF.";
-    chatInput.focus();
-  });
-
-  function handleSend(){
-    const text = chatInput.value.trim();
-    if(chatStage === 0){
-      if(!text) return;
-      addMsg('user', escapeHtml(text));
-      chatInput.value = '';
-      const t = addTyping();
-      setTimeout(()=>{
-        t.remove();
-        addMsg('ai', `Got it. You changed employers.<br><br>I'll help you understand what needs to happen to your PF.
-          <div class="mini-journey-preview" style="margin-top:10px;">
-            <div class="mjp-item done"><span class="s"></span>Previous employment</div>
-            <div class="mjp-item done"><span class="s"></span>New employment</div>
-            <div class="mjp-item active"><span class="s"></span>PF transfer</div>
-            <div class="mjp-item"><span class="s"></span>Verification</div>
-            <div class="mjp-item"><span class="s"></span>Completion</div>
-          </div>`);
-        setTimeout(()=>{
-          const t2 = addTyping();
-          setTimeout(()=>{
-            t2.remove();
-            addMsg('ai', `To guide you correctly, I need one more detail.<br><br><strong>Have you already received a PF account from your new employer?</strong>
-              <div class="chip-row" id="chipAnswers">
-                <button class="chip-btn" data-ans="yes">Yes, I have one</button>
-                <button class="chip-btn" data-ans="no">No / Not sure</button>
-                <button class="chip-btn" data-ans="unsure">I don't know</button>
-              </div>`);
-            attachChipHandlers();
-            chatStage = 1;
-            composerBox.style.display = 'none';
-          }, 1100);
-        }, 700);
-      }, 900);
-    }
-  }
-
-  function attachChipHandlers(){
-    document.querySelectorAll('#chipAnswers .chip-btn').forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        document.querySelectorAll('#chipAnswers .chip-btn').forEach(b=> b.disabled = true);
-        const label = btn.textContent;
-        addMsg('user', escapeHtml(label));
-        const t = addTyping();
-        setTimeout(()=>{
-          t.remove();
-          addMsg('ai', `Perfect — that's exactly what I needed. I've built your personalized PF journey based on what you told me.`);
-          setTimeout(()=>{
-            addMsg('ai', `<button class="chip-btn" id="goToJourneyBtn" style="background:var(--navy); color:#fff; border-color:var(--navy);">View my journey →</button>`);
-            document.getElementById('goToJourneyBtn').addEventListener('click', ()=>{
-              showView('journey');
-            });
-          }, 500);
-        }, 1000);
-        chatStage = 2;
-      });
-    });
-  }
-
-  function escapeHtml(str){
-    const d = document.createElement('div');
-    d.textContent = str;
-    return d.innerHTML;
-  }
-
-  document.getElementById('qaJobChange').addEventListener('click', ()=>{
-    if(chatLog.children.length === 0){
-      addMsg('ai', "What happened? Tell us in your own words — you don't need to know the PF terminology.");
-    }
-  });
-
-  // ---------- AI drawer ----------
-  const drawerOverlay = document.getElementById('drawerOverlay');
-  const drawerBody = document.getElementById('drawerBody');
-  const drawerInput = document.getElementById('drawerInput');
-
-  function openDrawer(){ drawerOverlay.classList.add('open'); drawerInput.focus(); }
-  fabAI.addEventListener('click', openDrawer);
-  document.getElementById('drawerClose').addEventListener('click', ()=> drawerOverlay.classList.remove('open'));
-  drawerOverlay.addEventListener('click', (e)=>{ if(e.target === drawerOverlay) drawerOverlay.classList.remove('open'); });
-
-  document.querySelectorAll('.dsug').forEach(btn=>{
-    btn.addEventListener('click', ()=> drawerAsk(btn.dataset.q));
-  });
-  document.getElementById('drawerSend').addEventListener('click', ()=>{
-    const v = drawerInput.value.trim();
-    if(v){ drawerAsk(v); drawerInput.value = ''; }
-  });
-  drawerInput.addEventListener('keydown', (e)=>{
-    if(e.key === 'Enter'){
-      const v = drawerInput.value.trim();
-      if(v){ drawerAsk(v); drawerInput.value = ''; }
-    }
-  });
-
-  function drawerAddMsg(who, html){
-    const wrap = document.createElement('div');
-    wrap.className = 'msg ' + who;
-    wrap.innerHTML = `<div class="avatar">${who==='ai'?'✦':'MS'}</div><div class="bubble">${html}</div>`;
-    drawerBody.appendChild(wrap);
-    drawerBody.scrollTop = drawerBody.scrollHeight;
-  }
-
-  function drawerAsk(q){
-    drawerAddMsg('user', escapeHtml(q));
-    const typing = document.createElement('div');
-    typing.className = 'msg ai';
-    typing.innerHTML = `<div class="avatar">✦</div><div class="bubble"><span class="typing-dots"><span></span><span></span><span></span></span></div>`;
-    drawerBody.appendChild(typing);
-    drawerBody.scrollTop = drawerBody.scrollHeight;
-
-    setTimeout(()=>{
-      typing.remove();
-      const lower = q.toLowerCase();
-      let reply;
-      if(lower.includes('transfer')){
-        reply = "Your transfer (PF-TRF-2026-08421) is in the EPFO processing stage — 62% complete. Check the Document Check tab to complete verification.";
-      } else if(lower.includes('withdraw')){
-        reply = "You can start a withdrawal from Quick actions → Withdraw PF. I'll walk you through eligibility and let you review everything before it's submitted.";
-      } else if(lower.includes('uan')){
-        reply = "Your UAN (Universal Account Number) is a permanent ID that stays with you across every employer. Think of it as your PF's home address.";
-      } else if(lower.includes('status')){
-        reply = "Head to the Status tab to see your live tracking timeline — submitted, verified, processing, and completed.";
-      } else {
-        reply = "Got it — I've noted that. For anything about your active transfer, check the Journey tab, and for status details, the Status tab has the full timeline.";
-      }
-      drawerAddMsg('ai', reply);
-    }, 900);
-  }
-
-  // Escape closes overlays
-  document.addEventListener('keydown', (e)=>{
-    if(e.key === 'Escape'){
-      drawerOverlay.classList.remove('open');
-      document.getElementById('confirmModal').classList.remove('open');
-    }
-  });
-
+  };
 })();
 </script>
+
+
+<script>
+(function(){
+  const btn = document.getElementById('confirmSituationBtn');
+  if(!btn) return;
+  btn.addEventListener('click', function(e){
+    e.preventDefault();
+
+    // Hide the interpretation card.
+    const card = document.getElementById('understandingCard');
+    if(card) card.classList.remove('show');
+
+    // Keep the journey consistent with the demo script.
+    const journey = document.getElementById('view-journey');
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    if(journey) journey.classList.add('active');
+
+    document.querySelectorAll('[data-nav]').forEach(b => {
+      b.classList.toggle('active', b.dataset.nav === 'journey');
+    });
+
+    window.scrollTo({top:0, behavior:'smooth'});
+
+    const toast = document.getElementById('toast');
+    if(toast){
+      toast.textContent = '🔔 Personalized PF journey ready.';
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+  });
+})();
+</script>
+
 </body>
 </html>
