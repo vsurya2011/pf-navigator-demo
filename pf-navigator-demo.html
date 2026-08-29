@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PF Navigator — Don't learn how PF works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0F2A4A;
+    --navy-deep:#0A1F38;
+    --blue:#1B5FA8;
+    --blue-light:#EAF2FB;
+    --bg:#F3F6FA;
+    --success:#1E8E5A;
+    --success-bg:#E7F5EE;
+    --warning:#C77F1A;
+    --warning-bg:#FBF0E0;
+    --error:#C43D3D;
+    --error-bg:#FBEAEA;
+    --text:#10233F;
+    --text-muted:#5B6B82;
+    --text-faint:#93A2B8;
+    --card:#FFFFFF;
+    --border:#E1E8F0;
+    --radius:14px;
+    --mono:'IBM Plex Mono', monospace;
+    --sans:'Inter', -apple-system, sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:var(--sans);
+    background:var(--bg);
+    color:var(--text);
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+  }
+  button{font-family:inherit; cursor:pointer; border:none; background:none;}
+  input, textarea{font-family:inherit;}
+  ::selection{background:var(--blue-light);}
+  a{color:inherit;}
+
+  /* ---------- Focus ---------- */
+  button:focus-visible, input:focus-visible, [tabindex]:focus-visible{
+    outline:2px solid var(--blue);
+    outline-offset:2px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+
+  /* ---------- Demo Banner ---------- */
+  .global-demo-banner{
+    background: linear-gradient(90deg, #1B5FA8, #0F2A4A);
+    color: #fff;
+    font-size: 11.5px;
+    font-weight: 700;
+    font-family: var(--mono);
+    padding: 6px 12px;
+    text-align: center;
+    letter-spacing: .05em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    z-index: 100;
+  }
+  .global-demo-banner .badge-pill{
+    background: rgba(255,255,255,0.2);
+    padding: 2px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+
+  /* ---------- App shell ---------- */
+  #app{min-height:100vh;}
+  .view{display:none;}
+  .view.active{display:block; animation:fadeIn .35s ease;}
+  @keyframes fadeIn{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+
+  /* ================= LOGIN ================= */
+  #view-login.active{
+    display:flex;
+    min-height:100vh;
+    align-items:center;
+    justify-content:center;
+    background:
+      radial-gradient(circle at 15% 15%, rgba(27,95,168,0.35), transparent 45%),
+      radial-gradient(circle at 85% 85%, rgba(15,42,74,0.5), transparent 50%),
+      linear-gradient(160deg, var(--navy-deep), var(--navy) 60%, #123259);
+    padding:24px;
+  }
+  .login-card{
+    width:100%;
+    max-width:400px;
+    background:var(--card);
+    border-radius:20px;
+    padding:40px 32px 32px;
+    box-shadow:0 30px 60px -20px rgba(6,17,33,0.5);
+  }
+  .brand-mark{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:28px;
+  }
+  .brand-mark .glyph{
+    width:38px; height:38px; border-radius:10px;
+    background:linear-gradient(135deg, var(--blue), var(--navy));
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; font-weight:800; font-size:16px; font-family:var(--mono);
+    flex-shrink:0;
+  }
+  .brand-mark .name{font-weight:800; font-size:19px; letter-spacing:-0.01em;}
+  .brand-mark .tag{font-size:11px; color:var(--text-faint); font-family:var(--mono); letter-spacing:.04em; text-transform:uppercase;}
+
+  .login-headline{font-size:26px; font-weight:800; letter-spacing:-0.02em; line-height:1.25; margin-bottom:6px;}
+  .login-sub{font-size:14.5px; color:var(--text-muted); margin-bottom:28px; line-height:1.5;}
+
+  .field{margin-bottom:16px;}
+  .field label{
+    display:block; font-size:12.5px; font-weight:600; color:var(--text-muted);
+    margin-bottom:6px; letter-spacing:.01em;
+  }
+  .field input{
+    width:100%; padding:13px 14px; border:1.5px solid var(--border);
+    border-radius:10px; font-size:15px; color:var(--text);
+    background:#FBFCFE; transition:border-color .15s, box-shadow .15s;
+  }
+  .field input:focus{border-color:var(--blue); box-shadow:0 0 0 3px var(--blue-light); outline:none;}
+
+  .btn-primary{
+    width:100%; padding:13px 16px; background:var(--navy); color:#fff;
+    border-radius:10px; font-size:15px; font-weight:700; letter-spacing:.01em;
+    transition:background .15s, transform .1s;
+  }
+  .btn-primary:hover{background:#0C2038;}
+  .btn-primary:active{transform:scale(.98);}
+
+  .login-demo-row{
+    margin-top:18px; padding:12px 14px; background:var(--blue-light);
+    border-radius:10px; font-size:12.5px; color:var(--blue); display:flex;
+    align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
+  }
+  .login-demo-row code{font-family:var(--mono); font-size:12px;}
+  .link-btn{color:var(--blue); font-weight:700; font-size:12.5px; text-decoration:underline; white-space:nowrap;}
+
+  .login-error{
+    display:none; margin-bottom:14px; padding:10px 12px; background:var(--error-bg);
+    color:var(--error); font-size:13px; border-radius:8px; font-weight:600;
+  }
+  .login-error.show{display:block;}
+
+  /* ================= APP SHELL (post login) ================= */
+  .shell{display:flex; min-height:100vh;}
+
+  .sidebar{
+    width:230px; flex-shrink:0; background:var(--navy-deep); color:#fff;
+    display:flex; flex-direction:column; padding:22px 16px;
+    position:sticky; top:0; height:100vh;
+  }
+  .sidebar .brand-mark .name{color:#fff;}
+  .sidebar .brand-mark .tag{color:#7C93B3;}
+  .side-nav{margin-top:30px; display:flex; flex-direction:column; gap:3px;}
+  .side-nav button{
+    display:flex; align-items:center; gap:11px; padding:10px 12px; border-radius:9px;
+    color:#B7C4D9; font-size:14px; font-weight:600; text-align:left; transition:background .15s, color .15s;
+  }
+  .side-nav button .ic{font-size:16px; width:18px; text-align:center;}
+  .side-nav button:hover{background:rgba(255,255,255,0.06); color:#fff;}
+  .side-nav button.active{background:var(--blue); color:#fff;}
+  .sidebar-foot{margin-top:auto; padding-top:16px; border-top:1px solid rgba(255,255,255,0.08);}
+  .sidebar-foot button{
+    display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:9px;
+    color:#B7C4D9; font-size:13.5px; font-weight:600; width:100%; text-align:left;
+  }
+  .sidebar-foot button:hover{background:rgba(255,255,255,0.06); color:#fff;}
+
+  .main{flex:1; min-width:0; padding:30px 34px 90px; position:relative;}
+  .topbar-mobile{display:none;}
+
+  .page-head{margin-bottom:24px;}
+  .eyebrow{font-family:var(--mono); font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--blue); font-weight:600; margin-bottom:6px;}
+  .page-title{font-size:26px; font-weight:800; letter-spacing:-0.02em;}
+  .page-desc{font-size:14.5px; color:var(--text-muted); margin-top:5px; max-width:560px; line-height:1.5;}
+
+  .card{
+    background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
+    padding:22px; margin-bottom: 20px;
+  }
+
+  /* ---------- Intelligence Layer & Action Cards ---------- */
+  .action-required-card {
+    background: #FFF9E6;
+    border: 1.5px solid #FFE08A;
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .action-required-left {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .action-icon-pill {
+    background: #FFC24B;
+    color: var(--navy-deep);
+    font-weight: 800;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .action-title { font-size: 14.5px; font-weight: 700; color: var(--navy); }
+  .action-desc { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+
+  /* ---------- PF Health Summary ---------- */
+  .pf-health-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+  }
+  .health-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+  .health-score { font-family: var(--mono); font-size: 22px; font-weight: 800; color: var(--success); }
+  .health-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .health-item { background: var(--bg); padding: 10px 12px; border-radius: 8px; font-size: 12.5px; }
+  .health-item-label { color: var(--text-muted); font-size: 11px; margin-bottom: 2px; }
+  .health-item-status { font-weight: 700; display: flex; align-items: center; gap: 4px; }
+  .health-item-status.ok { color: var(--success); }
+  .health-item-status.warn { color: var(--warning); }
+
+  /* ---------- Reasoning Visualization ---------- */
+  .reasoning-box {
+    background: var(--bg);
+    border-left: 3px solid var(--blue);
+    padding: 14px 16px;
+    border-radius: 0 10px 10px 0;
+    margin: 14px 0;
+  }
+  .reasoning-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--blue);
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .reasoning-list { margin-top: 8px; font-size: 13px; color: var(--text); line-height: 1.5; padding-left: 18px; }
+
+  /* ---------- Document Check View ---------- */
+  .doc-checklist { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
+  .doc-item {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 16px; border: 1px solid var(--border); border-radius: 10px; background: #fff;
+  }
+  .doc-info { display: flex; align-items: center; gap: 12px; }
+  .doc-status-badge { font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 12px; }
+  .doc-status-badge.verified { background: var(--success-bg); color: var(--success); }
+  .doc-status-badge.action { background: var(--warning-bg); color: var(--warning); }
+
+  /* ---------- Dashboard ---------- */
+  .greeting{font-size:24px; font-weight:800; letter-spacing:-0.02em; margin-bottom:2px;}
+  .greeting-sub{font-size:14px; color:var(--text-muted); margin-bottom:22px;}
+
+  .dash-grid{display:grid; grid-template-columns:1.4fr 1fr; gap:18px; align-items:start;}
+
+  .hero-journey-card{
+    background:linear-gradient(135deg, var(--navy), #163c68);
+    color:#fff; border-radius:18px; padding:26px 26px 22px; position:relative; overflow:hidden;
+  }
+  .hero-journey-card::after{
+    content:''; position:absolute; right:-60px; top:-60px; width:220px; height:220px;
+    background:radial-gradient(circle, rgba(255,255,255,0.09), transparent 70%);
+  }
+  .hero-top{display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;}
+  .hero-label{display:flex; align-items:center; gap:8px; font-size:13.5px; font-weight:700; color:#CFE0F5;}
+  .hero-label .dot{width:8px; height:8px; border-radius:50%; background:#FFC24B; animation:pulse 1.8s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;} 50%{opacity:.35;}}
+  .hero-ref{font-family:var(--mono); font-size:11.5px; color:#9FB6D6;}
+  .hero-title{font-size:21px; font-weight:800; margin-bottom:4px; letter-spacing:-0.01em;}
+  .hero-status{font-size:13.5px; color:#C9DAF0; margin-bottom:18px;}
+  .progress-track{height:8px; border-radius:6px; background:rgba(255,255,255,0.15); overflow:hidden; margin-bottom:8px;}
+  .progress-fill{height:100%; border-radius:6px; background:linear-gradient(90deg,#5FA8E8,#8FD1B8); width:0%; transition:width 1.1s cubic-bezier(.4,0,.2,1);}
+  .progress-meta{display:flex; justify-content:space-between; font-size:12px; color:#9FB6D6; font-family:var(--mono); margin-bottom:18px;}
+  .hero-btn{
+    background:#fff; color:var(--navy); font-weight:700; font-size:13.5px;
+    padding:10px 16px; border-radius:9px; display:inline-flex; align-items:center; gap:6px;
+    transition:transform .1s;
+  }
+  .hero-btn:hover{transform:translateY(-1px);}
+
+  .side-stack{display:flex; flex-direction:column; gap:16px;}
+
+  .ai-card{
+    background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:18px 20px;
+  }
+  .ai-card-head{display:flex; align-items:center; gap:9px; margin-bottom:10px;}
+  .ai-orb{
+    width:26px; height:26px; border-radius:50%; flex-shrink:0;
+    background:conic-gradient(from 180deg, var(--blue), #7BB4E8, var(--blue));
+    display:flex; align-items:center; justify-content:center; color:#fff; font-size:12px;
+  }
+  .ai-card-head .t{font-weight:700; font-size:13.5px;}
+  .ai-card p{font-size:13.5px; color:var(--text-muted); line-height:1.55; margin-bottom:12px;}
+  .ai-ask-btn{
+    font-size:12.5px; font-weight:700; color:var(--blue); display:inline-flex; align-items:center; gap:5px;
+  }
+
+  .section-label{font-size:13px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:.04em; margin:26px 0 12px;}
+
+  .quick-actions{display:grid; grid-template-columns:repeat(4,1fr); gap:12px;}
+  .qa-btn{
+    background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px 14px;
+    display:flex; flex-direction:column; align-items:flex-start; gap:10px; text-align:left;
+    transition:border-color .15s, transform .1s, box-shadow .15s;
+  }
+  .qa-btn:hover{border-color:var(--blue); transform:translateY(-2px); box-shadow:0 8px 20px -10px rgba(15,42,74,0.25);}
+  .qa-icon{
+    width:34px; height:34px; border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:16px;
+  }
+  .qa-btn .qa-title{font-size:13.5px; font-weight:700;}
+  .qa-btn .qa-sub{font-size:11.5px; color:var(--text-faint);}
+
+  .mini-timeline{display:flex; flex-direction:column; gap:0; margin-top:4px;}
+  .mini-step{display:flex; gap:10px; align-items:flex-start; padding-bottom:14px; position:relative;}
+  .mini-step:last-child{padding-bottom:0;}
+  .mini-step::before{
+    content:''; position:absolute; left:6px; top:16px; bottom:0; width:1.5px; background:var(--border);
+  }
+  .mini-step:last-child::before{display:none;}
+  .mini-dot{width:13px; height:13px; border-radius:50%; border:2.5px solid var(--border); background:#fff; flex-shrink:0; margin-top:2px; z-index:1;}
+  .mini-dot.done{background:var(--success); border-color:var(--success);}
+  .mini-dot.current{background:var(--blue); border-color:var(--blue); box-shadow:0 0 0 4px var(--blue-light);}
+  .mini-step .mt-title{font-size:12.5px; font-weight:700;}
+  .mini-step .mt-sub{font-size:11.5px; color:var(--text-faint); font-family:var(--mono);}
+
+  /* ---------- Journey stepper ---------- */
+  .journey-rail{display:flex; flex-direction:column; margin:6px 0 0;}
+  .rail-step{display:flex; gap:16px; position:relative; padding-bottom:30px;}
+  .rail-step:last-child{padding-bottom:0;}
+  .rail-line{
+    position:absolute; left:15px; top:34px; bottom:0; width:2px; background:var(--border);
+  }
+  .rail-step:last-child .rail-line{display:none;}
+  .rail-step.done .rail-line{background:var(--success);}
+  .rail-node{
+    width:32px; height:32px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono); font-size:12px; font-weight:600; border:2px solid var(--border); background:#fff; color:var(--text-faint); z-index:1;
+  }
+  .rail-step.done .rail-node{background:var(--success); border-color:var(--success); color:#fff;}
+  .rail-step.current .rail-node{background:var(--blue); border-color:var(--blue); color:#fff; box-shadow:0 0 0 6px var(--blue-light); animation:railPulse 2s infinite;}
+  @keyframes railPulse{0%,100%{box-shadow:0 0 0 6px var(--blue-light);} 50%{box-shadow:0 0 0 9px var(--blue-light);}}
+  .rail-content{padding-top:3px; flex:1;}
+  .rail-code{font-family:var(--mono); font-size:11px; color:var(--text-faint); letter-spacing:.04em; margin-bottom:2px;}
+  .rail-title{font-size:15px; font-weight:700; margin-bottom:3px;}
+  .rail-desc{font-size:13px; color:var(--text-muted); line-height:1.5;}
+  .rail-step.pending .rail-title{color:var(--text-faint);}
+
+  .journey-detail-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:22px;}
+  .detail-box{background:var(--bg); border-radius:12px; padding:16px 18px;}
+  .detail-box .db-label{font-size:11.5px; font-weight:700; color:var(--text-faint); text-transform:uppercase; letter-spacing:.04em; margin-bottom:6px;}
+  .detail-box .db-body{font-size:14px; line-height:1.55;}
+  .detail-box.now{border-left:3px solid var(--blue);}
+  .detail-box.next{border-left:3px solid var(--text-faint);}
+
+  /* ---------- AI chat / onboarding ---------- */
+  .chat-wrap{max-width:640px;}
+  .chat-log{display:flex; flex-direction:column; gap:14px; margin-bottom:18px;}
+  .msg{display:flex; gap:10px; align-items:flex-start; max-width:88%;}
+  .msg.ai{align-self:flex-start;}
+  .msg.user{align-self:flex-end; flex-direction:row-reverse; margin-left:auto;}
+  .msg .avatar{
+    width:28px; height:28px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:13px;
+  }
+  .msg.ai .avatar{background:conic-gradient(from 180deg, var(--blue), #7BB4E8, var(--blue)); color:#fff;}
+  .msg.user .avatar{background:var(--navy); color:#fff;}
+  .bubble{
+    padding:12px 15px; border-radius:14px; font-size:14px; line-height:1.55;
+  }
+  .msg.ai .bubble{background:var(--card); border:1px solid var(--border); border-top-left-radius:4px;}
+  .msg.user .bubble{background:var(--navy); color:#fff; border-top-right-radius:4px;}
+
+  .chip-row{display:flex; gap:8px; flex-wrap:wrap; margin-top:4px;}
+  .chip-btn{
+    padding:10px 15px; border:1.5px solid var(--border); border-radius:10px; font-size:13.5px; font-weight:600;
+    background:#fff; transition:border-color .15s, background .15s;
+  }
+  .chip-btn:hover{border-color:var(--blue); background:var(--blue-light);}
+
+  .mini-journey-preview{display:flex; flex-wrap:wrap; gap:8px; margin-top:2px;}
+  .mjp-item{
+    display:flex; align-items:center; gap:6px; font-size:12.5px; font-weight:600; padding:6px 10px 6px 8px;
+    background:var(--bg); border-radius:20px; color:var(--text-muted);
+  }
+  .mjp-item .s{width:6px; height:6px; border-radius:50%; background:var(--text-faint);}
+  .mjp-item.done{color:var(--success);}
+  .mjp-item.done .s{background:var(--success);}
+  .mjp-item.active{color:var(--blue); background:var(--blue-light);}
+  .mjp-item.active .s{background:var(--blue);}
+
+  .composer{
+    display:flex; flex-direction:column; gap:10px; border:1.5px solid var(--border); border-radius:14px; padding:14px 16px; background:#fff;
+  }
+  .composer textarea{
+    border:none; resize:none; font-family:inherit; font-size:14.5px; min-height:52px; outline:none; color:var(--text);
+  }
+  .composer-actions{display:flex; justify-content:space-between; align-items:center;}
+  .mic-btn{
+    display:flex; align-items:center; gap:6px; font-size:12.5px; font-weight:700; color:var(--text-muted);
+    padding:7px 12px; border:1.5px solid var(--border); border-radius:20px;
+  }
+  .mic-btn:hover{border-color:var(--blue); color:var(--blue);}
+  .send-btn{
+    background:var(--navy); color:#fff; font-weight:700; font-size:13.5px; padding:9px 18px; border-radius:9px;
+  }
+  .send-btn:disabled{opacity:.4; cursor:not-allowed;}
+
+  .typing-dots{display:inline-flex; gap:4px; padding:4px 0;}
+  .typing-dots span{width:6px; height:6px; border-radius:50%; background:var(--text-faint); animation:tdot 1.2s infinite ease-in-out;}
+  .typing-dots span:nth-child(2){animation-delay:.15s;}
+  .typing-dots span:nth-child(3){animation-delay:.3s;}
+  @keyframes tdot{0%,60%,100%{transform:translateY(0); opacity:.4;} 30%{transform:translateY(-4px); opacity:1;}}
+
+  /* ---------- Status tracking ---------- */
+  .status-head-card{display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:14px; margin-bottom:20px;}
+  .status-ref .lbl{font-size:11.5px; color:var(--text-faint); text-transform:uppercase; letter-spacing:.04em; font-weight:700;}
+  .status-ref .val{font-family:var(--mono); font-size:16px; font-weight:600; margin-top:3px;}
+  .status-badge{
+    display:inline-flex; align-items:center; gap:6px; padding:6px 12px; border-radius:20px; font-size:12.5px; font-weight:700;
+    background:var(--warning-bg); color:var(--warning);
+  }
+  .status-badge .s{width:7px; height:7px; border-radius:50%; background:var(--warning);}
+
+  .info-list{display:flex; flex-direction:column; gap:1px; border-radius:12px; overflow:hidden; border:1px solid var(--border);}
+  .info-row{display:flex; justify-content:space-between; align-items:center; padding:14px 18px; background:#fff; font-size:14px;}
+  .info-row + .info-row{border-top:1px solid var(--border);}
+  .info-row .k{color:var(--text-muted);}
+  .info-row .v{font-weight:600; font-family:var(--mono); font-size:13.5px;}
+
+  /* ---------- Profile ---------- */
+  .profile-head{display:flex; align-items:center; gap:16px; margin-bottom:24px;}
+  .avatar-lg{
+    width:60px; height:60px; border-radius:50%; background:linear-gradient(135deg, var(--blue), var(--navy));
+    color:#fff; display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:700; flex-shrink:0;
+  }
+
+  /* ---------- AI drawer overlay ---------- */
+  .fab{
+    position:fixed; bottom:26px; right:26px; width:56px; height:56px; border-radius:50%;
+    background:linear-gradient(135deg, var(--blue), var(--navy)); color:#fff; font-size:22px;
+    display:flex; align-items:center; justify-content:center; box-shadow:0 12px 28px -8px rgba(15,42,74,0.5);
+    z-index:60; transition:transform .15s;
+  }
+  .fab:hover{transform:scale(1.06);}
+  .fab.hidden{display:none;}
+
+  .drawer-overlay{
+    position:fixed; inset:0; background:rgba(10,20,36,0.35); z-index:70; display:none; align-items:flex-end; justify-content:flex-end;
+    padding:22px;
+  }
+  .drawer-overlay.open{display:flex;}
+  .drawer{
+    width:360px; max-width:100%; max-height:78vh; background:#fff; border-radius:18px; box-shadow:0 30px 60px -15px rgba(6,17,33,0.4);
+    display:flex; flex-direction:column; overflow:hidden; animation:drawerUp .25s ease;
+  }
+  @keyframes drawerUp{from{opacity:0; transform:translateY(16px);} to{opacity:1; transform:translateY(0);}}
+  .drawer-head{
+    background:var(--navy); color:#fff; padding:14px 16px; display:flex; align-items:center; justify-content:space-between;
+  }
+  .drawer-head .t{display:flex; align-items:center; gap:9px; font-weight:700; font-size:14px;}
+  .drawer-close{color:#B7C4D9; font-size:18px; padding:4px;}
+  .drawer-close:hover{color:#fff;}
+  .drawer-body{flex:1; overflow-y:auto; padding:16px; display:flex; flex-direction:column; gap:12px; background:var(--bg);}
+  .drawer-foot{padding:10px 12px; border-top:1px solid var(--border); background:#fff; display:flex; gap:8px;}
+  .drawer-foot input{
+    flex:1; border:1.5px solid var(--border); border-radius:10px; padding:10px 12px; font-size:13.5px;
+  }
+  .drawer-foot input:focus{outline:none; border-color:var(--blue);}
+  .drawer-foot button{
+    background:var(--navy); color:#fff; width:38px; border-radius:10px; font-size:15px; flex-shrink:0;
+  }
+  .drawer-suggest{display:flex; gap:6px; flex-wrap:wrap; padding:0 16px 12px; background:var(--bg);}
+  .dsug{font-size:11.5px; font-weight:600; padding:6px 10px; border-radius:16px; background:#fff; border:1px solid var(--border); color:var(--text-muted);}
+  .dsug:hover{border-color:var(--blue); color:var(--blue);}
+
+  /* ---------- Toast ---------- */
+  .toast{
+    position:fixed; top:20px; left:50%; transform:translateX(-50%) translateY(-20px); opacity:0;
+    background:var(--navy); color:#fff; padding:12px 20px; border-radius:10px; font-size:13.5px; font-weight:600;
+    display:flex; align-items:center; gap:8px; z-index:90; box-shadow:0 15px 30px -10px rgba(6,17,33,0.4);
+    transition:all .3s ease; pointer-events:none;
+  }
+  .toast.show{transform:translateX(-50%) translateY(0); opacity:1;}
+
+  /* ---------- Mobile bottom nav ---------- */
+  .bottom-nav{display:none;}
+
+  /* ---------- Confirmation modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0; background:rgba(10,20,36,0.45); z-index:80; align-items:center; justify-content:center; display:none; padding:20px;
+  }
+  .modal-overlay.open{display:flex;}
+  .modal-box{background:#fff; border-radius:16px; padding:26px; max-width:360px; width:100%; animation:drawerUp .2s ease;}
+  .modal-box .mt{font-size:18px; font-weight:800; margin-bottom:8px;}
+  .modal-box .md{font-size:13.5px; color:var(--text-muted); line-height:1.55; margin-bottom:20px;}
+  .modal-actions{display:flex; gap:10px;}
+  .modal-actions .ghost{
+    flex:1; padding:11px; border-radius:10px; border:1.5px solid var(--border); font-weight:700; font-size:13.5px; color:var(--text-muted);
+  }
+  .modal-actions .primary{
+    flex:1; padding:11px; border-radius:10px; background:var(--navy); color:#fff; font-weight:700; font-size:13.5px;
+  }
+
+  .synthetic-tag{
+    display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:700; color:var(--warning);
+    background:var(--warning-bg); padding:5px 10px; border-radius:8px; margin-bottom:16px;
+  }
+
+  /* ================= RESPONSIVE ================= */
+  @media (max-width: 860px){
+    .sidebar{display:none;}
+    .main{padding:18px 16px 100px;}
+    .topbar-mobile{
+      display:flex; align-items:center; justify-content:space-between; margin-bottom:20px;
+      position:sticky; top:0; background:var(--bg); z-index:30; padding:4px 0 10px;
+    }
+    .dash-grid{grid-template-columns:1fr;}
+    .quick-actions{grid-template-columns:repeat(2,1fr);}
+    .journey-detail-grid{grid-template-columns:1fr;}
+    .bottom-nav{
+      display:flex; position:fixed; bottom:0; left:0; right:0; background:#fff; border-top:1px solid var(--border);
+      padding:8px 6px 10px; z-index:60; justify-content:space-around;
+    }
+    .bn-btn{display:flex; flex-direction:column; align-items:center; gap:3px; color:var(--text-faint); font-size:10.5px; font-weight:700; padding:4px 8px;}
+    .bn-btn .ic{font-size:18px;}
+    .bn-btn.active{color:var(--blue);}
+    .fab{bottom:82px; right:16px; width:50px; height:50px; font-size:19px;}
+    .page-title{font-size:22px;}
+    .greeting{font-size:20px;}
+    .drawer-overlay{padding:0; align-items:flex-end;}
+    .drawer{width:100%; max-height:82vh; border-radius:18px 18px 0 0;}
+  }
+</style>
+</head>
+<body>
+
+<div id="app">
+
+  <!-- Global Demo Mode Banner -->
+  <div class="global-demo-banner">
+    <span class="badge-pill">Interactive Demo</span>
+    PF Navigator Engine · Synthetic Data Only
+  </div>
+
+  <!-- ================= LOGIN VIEW ================= -->
+  <section class="view active" id="view-login">
+    <div class="login-card">
+      <div class="brand-mark">
+        <div class="glyph">PF</div>
+        <div>
+          <div class="name">PF Navigator</div>
+          <div class="tag">EPFO · Reimagined</div>
+        </div>
+      </div>
+      <div class="login-headline">Don't learn how PF works.<br>Just tell us what happened.</div>
+      <div class="login-sub">Sign in to see your provident fund journey, explained in plain language.</div>
+
+      <div class="login-error" id="loginError">That email/password combination doesn't match our demo account. Try the demo credentials below.</div>
+
+      <form id="loginForm" novalidate>
+        <div class="field">
+          <label for="loginEmail">Email</label>
+          <input id="loginEmail" type="email" placeholder="you@example.com" autocomplete="username">
+        </div>
+        <div class="field">
+          <label for="loginPass">Password</label>
+          <input id="loginPass" type="password" placeholder="••••••••" autocomplete="current-password">
+        </div>
+        <button type="submit" class="btn-primary">Sign in</button>
+      </form>
+
+      <div class="login-demo-row">
+        <span>Demo account: <code>demo@pfnavigator.in</code> / <code>PF1234</code></span>
+        <button class="link-btn" id="fillDemo" type="button">Use it</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= APP SHELL ================= -->
+  <div class="shell" id="appShell" style="display:none;">
+
+    <!-- Sidebar (desktop) -->
+    <aside class="sidebar">
+      <div class="brand-mark">
+        <div class="glyph">PF</div>
+        <div>
+          <div class="name">PF Navigator</div>
+          <div class="tag">EPFO · Reimagined</div>
+        </div>
+      </div>
+      <nav class="side-nav">
+        <button data-nav="dashboard" class="active"><span class="ic">⌂</span> Dashboard</button>
+        <button data-nav="journey"><span class="ic">◈</span> My PF Journey</button>
+        <button data-nav="docs"><span class="ic">📄</span> Document Check</button>
+        <button data-nav="status"><span class="ic">▤</span> Track Status</button>
+        <button data-nav="profile"><span class="ic">◔</span> Profile</button>
+      </nav>
+      <div class="sidebar-foot">
+        <button id="logoutBtnDesktop"><span class="ic">↩</span> Sign out</button>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <main class="main">
+
+      <div class="topbar-mobile">
+        <div class="brand-mark">
+          <div class="glyph">PF</div>
+          <div><div class="name" style="font-size:15px;">PF Navigator</div></div>
+        </div>
+        <button id="logoutBtnMobile" style="font-size:12.5px; font-weight:700; color:var(--text-muted);">Sign out</button>
+      </div>
+
+      <!-- ---------- DASHBOARD ---------- -->
+      <section class="view" id="view-dashboard">
+        <div class="greeting" id="greetingText">Good morning, Mohammed 👋</div>
+        <div class="greeting-sub">Here's what's happening with your PF right now.</div>
+
+        <!-- Action Required Intelligence Layer -->
+        <div class="action-required-card">
+          <div class="action-required-left">
+            <div class="action-icon-pill">!</div>
+            <div>
+              <div class="action-title">Action Required: Employer Verification Verification</div>
+              <div class="action-desc">Your new employer (TechNova) requires a quick document confirmation before Form 13 transfer approval.</div>
+            </div>
+          </div>
+          <button class="hero-btn" style="background:var(--navy); color:#fff; flex-shrink:0;" data-nav="docs">Verify Now</button>
+        </div>
+
+        <div class="dash-grid">
+          <div class="hero-journey-card">
+            <div class="hero-top">
+              <div class="hero-label"><span class="dot"></span> PF Transfer</div>
+              <div class="hero-ref">PF-TRF-2026-08421</div>
+            </div>
+            <div class="hero-title">Verification in progress</div>
+            <div class="hero-status">Your new employer is confirming your service details before the transfer proceeds.</div>
+            <div class="progress-track"><div class="progress-fill" id="dashProgressFill"></div></div>
+            <div class="progress-meta"><span>62% complete</span><span>Est. 4–6 days left</span></div>
+            <button class="hero-btn" data-nav="journey">View journey →</button>
+          </div>
+
+          <div class="side-stack">
+            <!-- PF Health Summary -->
+            <div class="pf-health-card">
+              <div class="health-header">
+                <span class="eyebrow" style="margin-bottom:0;">PF Health Score</span>
+                <span class="health-score">92%</span>
+              </div>
+              <div class="health-grid">
+                <div class="health-item">
+                  <div class="health-item-label">UAN Active</div>
+                  <div class="health-item-status ok">✓ Linked</div>
+                </div>
+                <div class="health-item">
+                  <div class="health-item-label">KYC (Aadhaar)</div>
+                  <div class="health-item-status ok">✓ Verified</div>
+                </div>
+                <div class="health-item">
+                  <div class="health-item-label">Bank Seeding</div>
+                  <div class="health-item-status ok">✓ Approved</div>
+                </div>
+                <div class="health-item">
+                  <div class="health-item-label">Date of Exit</div>
+                  <div class="health-item-status warn">⚠ Check needed</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="ai-card">
+              <div class="ai-card-head"><div class="ai-orb">✦</div><div class="t">AI Assistant</div></div>
+              <p>"Your PF transfer is currently being verified by your new employer. You don't need to take any action right now — I'll let you know the moment that changes."</p>
+              <button class="ai-ask-btn" id="openDrawerFromCard">Ask a question →</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-label">What do you want to do?</div>
+        <div class="quick-actions">
+          <button class="qa-btn" id="qaJobChange">
+            <div class="qa-icon" style="background:var(--blue-light); color:var(--blue);">⇄</div>
+            <div><div class="qa-title">Change of job</div><div class="qa-sub">Tell us what happened</div></div>
+          </button>
+          <button class="qa-btn" data-nav="docs">
+            <div class="qa-icon" style="background:#EBF5FF; color:var(--blue);">📄</div>
+            <div><div class="qa-title">Document check</div><div class="qa-sub">Verify readiness</div></div>
+          </button>
+          <button class="qa-btn" id="qaWithdraw">
+            <div class="qa-icon" style="background:var(--success-bg); color:var(--success);">₹</div>
+            <div><div class="qa-title">Withdraw PF</div><div class="qa-sub">Start a claim</div></div>
+          </button>
+          <button class="qa-btn" id="qaHelp">
+            <div class="qa-icon" style="background:var(--error-bg); color:var(--error);">?</div>
+            <div><div class="qa-title">I need help</div><div class="qa-sub">Ask the AI assistant</div></div>
+          </button>
+        </div>
+      </section>
+
+      <!-- ---------- AI ONBOARDING: "TELL US WHAT HAPPENED" ---------- -->
+      <section class="view" id="view-ai-onboarding">
+        <div class="page-head">
+          <div class="eyebrow">AI-guided journey</div>
+          <div class="page-title">What happened?</div>
+          <div class="page-desc">Tell us in your own words. You don't need to know the PF terminology — we'll figure out what applies to you.</div>
+        </div>
+
+        <div class="chat-wrap">
+          <div class="chat-log" id="chatLog"></div>
+
+          <div class="composer" id="composerBox">
+            <textarea id="chatInput" placeholder="e.g. I changed my job last month and I don't know what I need to do with my PF..."></textarea>
+            <div class="composer-actions">
+              <button class="mic-btn" id="micBtn">🎤 Speak</button>
+              <button class="send-btn" id="sendBtn">Continue</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- PERSONALIZED JOURNEY ---------- -->
+      <section class="view" id="view-journey">
+        <div class="page-head">
+          <div class="eyebrow">Your PF journey</div>
+          <div class="page-title">Job change → PF transfer</div>
+          <div class="page-desc">Built from what you told us. This updates automatically as EPFO processes each step.</div>
+        </div>
+
+        <!-- AI Reasoning Visualization Banner -->
+        <div class="reasoning-box">
+          <div class="reasoning-title">✦ AI Recommendation Logic</div>
+          <ul class="reasoning-list">
+            <li>Detected job transition between registered UAN accounts.</li>
+            <li>Policy rule Section 57 applied: Auto-transfer triggers Form 13 online request.</li>
+            <li>Optimal action: Confirm Document Check to avoid EPFO claim rejection.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="journey-rail" id="journeyRail">
+            <div class="rail-step done">
+              <div class="rail-node">✓</div><div class="rail-line"></div>
+              <div class="rail-content"><div class="rail-code">STEP 01</div><div class="rail-title">Job change confirmed</div><div class="rail-desc">You told us you left ABC Technologies and joined TechNova Pvt. Ltd.</div></div>
+            </div>
+            <div class="rail-step done">
+              <div class="rail-node">✓</div><div class="rail-line"></div>
+              <div class="rail-content"><div class="rail-code">STEP 02</div><div class="rail-title">PF account identified</div><div class="rail-desc">Your new employer has issued a PF account linked to your UAN.</div></div>
+            </div>
+            <div class="rail-step current">
+              <div class="rail-node">●</div><div class="rail-line"></div>
+              <div class="rail-content"><div class="rail-code">STEP 03 · CURRENT</div><div class="rail-title">PF transfer — verification</div><div class="rail-desc">Your transfer request is being verified by your previous and current employer.</div></div>
+            </div>
+            <div class="rail-step pending">
+              <div class="rail-node">4</div><div class="rail-line"></div>
+              <div class="rail-content"><div class="rail-code">STEP 04</div><div class="rail-title">EPFO processing</div><div class="rail-desc">Once verified, EPFO transfers your balance to the new account.</div></div>
+            </div>
+            <div class="rail-step pending">
+              <div class="rail-node">5</div>
+              <div class="rail-content"><div class="rail-code">STEP 05</div><div class="rail-title">Completed</div><div class="rail-desc">Your full PF history is now consolidated under one account.</div></div>
+            </div>
+          </div>
+
+          <div class="journey-detail-grid">
+            <div class="detail-box now">
+              <div class="db-label">What you need to do</div>
+              <div class="db-body">Confirm your document readiness status to complete verification smoothly.</div>
+            </div>
+            <div class="detail-box next">
+              <div class="db-label">What happens next</div>
+              <div class="db-body">Once both employers confirm your details, your transfer moves to EPFO processing — typically 4–6 days.</div>
+            </div>
+          </div>
+
+          <div style="margin-top:20px; display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="hero-btn" style="background:var(--navy); color:#fff;" data-nav="docs">Check Readiness →</button>
+            <button class="hero-btn" style="background:#fff; border:1.5px solid var(--border); color:var(--text);" data-nav="dashboard">Back to dashboard</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- DOCUMENT CHECK FLOW ---------- -->
+      <section class="view" id="view-docs">
+        <div class="page-head">
+          <div class="eyebrow">Verification flow</div>
+          <div class="page-title">Document & Profile Readiness</div>
+          <div class="page-desc">AI has verified your credentials against EPFO standards to prevent claim rejections.</div>
+        </div>
+
+        <div class="card">
+          <div class="synthetic-tag">⚠ Synthetic Demo Validation Checks</div>
+          <div class="doc-checklist">
+            <div class="doc-item">
+              <div class="doc-info">
+                <span style="font-size:20px;">🆔</span>
+                <div>
+                  <div style="font-weight:700; font-size:14px;">Aadhaar & Name Matching</div>
+                  <div style="font-size:12.5px; color:var(--text-muted);">Exact match with EPFO UAN Database</div>
+                </div>
+              </div>
+              <span class="doc-status-badge verified">Verified</span>
+            </div>
+
+            <div class="doc-item">
+              <div class="doc-info">
+                <span style="font-size:20px;">🏦</span>
+                <div>
+                  <div style="font-weight:700; font-size:14px;">Bank Account & IFSC KYC</div>
+                  <div style="font-size:12.5px; color:var(--text-muted);">Digitally signed by Bank</div>
+                </div>
+              </div>
+              <span class="doc-status-badge verified">Verified</span>
+            </div>
+
+            <div class="doc-item">
+              <div class="doc-info">
+                <span style="font-size:20px;">📅</span>
+                <div>
+                  <div style="font-weight:700; font-size:14px;">Date of Exit (Previous Employer)</div>
+                  <div style="font-size:12.5px; color:var(--text-muted);">ABC Technologies updated exit record on portal</div>
+                </div>
+              </div>
+              <span class="doc-status-badge action">Action Recommended</span>
+            </div>
+          </div>
+
+          <div style="margin-top:20px; display:flex; gap:10px;">
+            <button class="hero-btn" style="background:var(--navy); color:#fff;" id="btnConfirmDocs">Confirm & Continue →</button>
+            <button class="hero-btn" style="background:#fff; border:1.5px solid var(--border); color:var(--text);" data-nav="dashboard">Back</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- STATUS TRACKING ---------- -->
+      <section class="view" id="view-status">
+        <div class="page-head">
+          <div class="eyebrow">Track status</div>
+          <div class="page-title">Transfer request</div>
+        </div>
+
+        <div class="card">
+          <div class="status-head-card">
+            <div class="status-ref">
+              <div class="lbl">Reference number</div>
+              <div class="val">PF-TRF-2026-08421</div>
+            </div>
+            <div class="status-badge"><span class="s"></span> EPFO processing</div>
+          </div>
+
+          <div class="journey-rail" style="margin-bottom:4px;">
+            <div class="rail-step done"><div class="rail-node">✓</div><div class="rail-line"></div>
+              <div class="rail-content"><div class="rail-code">08 JUL 2026</div><div class="rail-title">Submitted</div><div class="rail-desc">Transfer request filed with EPFO.</div></div></div>
+            <div class="rail-step done"><div class="rail-node">✓</div><div class="rail-line"></div>
+              <div class="rail-content"><div class="rail-code">14 JUL 2026</div><div class="rail-title">Employer verification</div><div class="rail-desc">Confirmed by ABC Technologies and TechNova Pvt. Ltd.</div></div></div>
+            <div class="rail-step current"><div class="rail-node">●</div><div class="rail-line"></div>
+              <div class="rail-content"><div class="rail-code">IN PROGRESS</div><div class="rail-title">EPFO processing</div><div class="rail-desc">Your request has reached the processing stage.</div></div></div>
+            <div class="rail-step pending"><div class="rail-node">4</div>
+              <div class="rail-content"><div class="rail-code">PENDING</div><div class="rail-title">Completed</div><div class="rail-desc">Funds consolidated into your current PF account.</div></div></div>
+          </div>
+
+          <div class="journey-detail-grid">
+            <div class="detail-box now">
+              <div class="db-label">What does this mean?</div>
+              <div class="db-body">Your request has reached the processing stage. No action is currently required from you.</div>
+            </div>
+            <div class="detail-box next">
+              <div class="db-label">Next expected action</div>
+              <div class="db-body">Wait for EPFO processing to complete — we'll notify you the moment it does.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- QUICK ACTION: WITHDRAW ---------- -->
+      <section class="view" id="view-action">
+        <div class="page-head">
+          <div class="eyebrow" id="actionEyebrow">Quick action</div>
+          <div class="page-title" id="actionTitle">Withdraw PF</div>
+          <div class="page-desc" id="actionDesc">A focused, guided flow — no forms full of unfamiliar terms.</div>
+        </div>
+
+        <div class="card">
+          <div class="synthetic-tag">⚠ Synthetic demo data — no real EPFO submission occurs</div>
+          <div class="info-list">
+            <div class="info-row"><span class="k">PF Member ID</span><span class="v">••••••••7890</span></div>
+            <div class="info-row"><span class="k">Available balance</span><span class="v">₹4,82,300</span></div>
+            <div class="info-row"><span class="k">Employer</span><span class="v">TechNova Pvt. Ltd.</span></div>
+            <div class="info-row"><span class="k">Reason</span><span class="v">Personal withdrawal</span></div>
+          </div>
+          <div style="margin-top:20px; display:flex; gap:10px;">
+            <button class="hero-btn" style="background:var(--navy); color:#fff;" id="actionContinueBtn">Continue →</button>
+            <button class="hero-btn" style="background:#fff; border:1.5px solid var(--border); color:var(--text);" data-nav="dashboard">Cancel</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- PROFILE ---------- -->
+      <section class="view" id="view-profile">
+        <div class="page-head">
+          <div class="eyebrow">My profile</div>
+          <div class="page-title">Profile & information</div>
+        </div>
+
+        <div class="card" style="max-width:520px;">
+          <div class="profile-head">
+            <div class="avatar-lg">MS</div>
+            <div>
+              <div style="font-size:18px; font-weight:800;">Mohammed Sulthan</div>
+              <div style="font-size:13px; color:var(--text-muted);">demo@pfnavigator.in</div>
+            </div>
+          </div>
+          <div class="info-list">
+            <div class="info-row"><span class="k">Current employer</span><span class="v">TechNova Pvt. Ltd.</span></div>
+            <div class="info-row"><span class="k">Previous employer</span><span class="v">ABC Technologies</span></div>
+            <div class="info-row"><span class="k">PF Member ID</span><span class="v">••••••••7890</span></div>
+            <div class="info-row"><span class="k">UAN</span><span class="v">•••• •••• 4471</span></div>
+          </div>
+          <div class="synthetic-tag" style="margin-top:18px;">⚠ All information shown is synthetic demo data</div>
+          <button class="hero-btn" style="background:#fff; border:1.5px solid var(--border); color:var(--text); margin-top:6px;" id="signOutFromProfile">Sign out</button>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Mobile bottom nav -->
+  <nav class="bottom-nav" id="bottomNav">
+    <button class="bn-btn active" data-nav="dashboard"><span class="ic">⌂</span>Home</button>
+    <button class="bn-btn" data-nav="journey"><span class="ic">◈</span>Journey</button>
+    <button class="bn-btn" data-nav="docs"><span class="ic">📄</span>Docs</button>
+    <button class="bn-btn" data-nav="status"><span class="ic">▤</span>Status</button>
+    <button class="bn-btn" data-nav="profile"><span class="ic">◔</span>Profile</button>
+  </nav>
+
+  <!-- Floating AI assistant button -->
+  <button class="fab hidden" id="fabAI" title="Ask PF Navigator AI">✦</button>
+
+  <!-- AI drawer overlay -->
+  <div class="drawer-overlay" id="drawerOverlay">
+    <div class="drawer">
+      <div class="drawer-head">
+        <div class="t">✦ PF Navigator AI</div>
+        <button class="drawer-close" id="drawerClose">✕</button>
+      </div>
+      <div class="drawer-body" id="drawerBody">
+        <div class="msg ai"><div class="avatar">✦</div><div class="bubble">Hi Mohammed. How can I help with your PF today?</div></div>
+      </div>
+      <div class="drawer-suggest">
+        <button class="dsug" data-q="What's happening with my transfer?">What's happening with my transfer?</button>
+        <button class="dsug" data-q="How do I withdraw PF?">How do I withdraw PF?</button>
+        <button class="dsug" data-q="What is a UAN?">What is a UAN?</button>
+      </div>
+      <div class="drawer-foot">
+        <input type="text" id="drawerInput" placeholder="Ask something...">
+        <button id="drawerSend">→</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirmation modal -->
+  <div class="modal-overlay" id="confirmModal">
+    <div class="modal-box">
+      <div class="mt">Ready to continue?</div>
+      <div class="md">We'll use the information you've provided to prepare this step. You can review everything before it's submitted.</div>
+      <div class="modal-actions">
+        <button class="ghost" id="modalCancel">Go back</button>
+        <button class="primary" id="modalContinue">Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">🔔 Your PF journey has been updated.</div>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ---------- Navigation ----------
+  const views = document.querySelectorAll('.view');
+  function showView(id){
+    views.forEach(v => v.classList.toggle('active', v.id === 'view-' + id));
+    document.querySelectorAll('.side-nav button[data-nav]').forEach(b=>{
+      b.classList.toggle('active', b.dataset.nav === id);
+    });
+    document.querySelectorAll('.bn-btn[data-nav]').forEach(b=>{
+      b.classList.toggle('active', b.dataset.nav === id);
+    });
+    window.scrollTo({top:0, behavior:'smooth'});
+    if(id === 'dashboard'){
+      requestAnimationFrame(()=>{ 
+        const fill = document.getElementById('dashProgressFill');
+        if(fill) fill.style.width = '62%'; 
+      });
+    }
+  }
+  document.querySelectorAll('[data-nav]').forEach(el=>{
+    el.addEventListener('click', ()=> showView(el.dataset.nav));
+  });
+
+  // ---------- Login ----------
+  const loginForm = document.getElementById('loginForm');
+  const loginError = document.getElementById('loginError');
+  const appShell = document.getElementById('appShell');
+  const loginView = document.getElementById('view-login');
+  const fabAI = document.getElementById('fabAI');
+
+  document.getElementById('fillDemo').addEventListener('click', ()=>{
+    document.getElementById('loginEmail').value = 'demo@pfnavigator.in';
+    document.getElementById('loginPass').value = 'PF1234';
+    loginError.classList.remove('show');
+  });
+
+  loginForm.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+    const pass = document.getElementById('loginPass').value;
+    if(email === 'demo@pfnavigator.in' && pass === 'PF1234'){
+      loginView.classList.remove('active');
+      loginView.style.display = 'none';
+      appShell.style.display = 'flex';
+      fabAI.classList.remove('hidden');
+      showView('dashboard');
+      setTimeout(()=> showToast('Welcome back, Mohammed. 1 action item pending.'), 700);
+    } else {
+      loginError.classList.add('show');
+      loginForm.style.animation = 'none';
+      requestAnimationFrame(()=>{ loginForm.style.animation = 'shake .35s'; });
+    }
+  });
+
+  const shakeStyle = document.createElement('style');
+  shakeStyle.textContent = `@keyframes shake{0%,100%{transform:translateX(0);}20%{transform:translateX(-6px);}40%{transform:translateX(6px);}60%{transform:translateX(-4px);}80%{transform:translateX(4px);}}`;
+  document.head.appendChild(shakeStyle);
+
+  function doLogout(){
+    appShell.style.display = 'none';
+    fabAI.classList.add('hidden');
+    document.getElementById('drawerOverlay').classList.remove('open');
+    loginView.style.display = 'flex';
+    loginView.classList.add('active');
+    document.getElementById('loginPass').value = '';
+    resetChat();
+  }
+
+  // Safe listeners using optional chaining
+  document.getElementById('logoutBtnDesktop')?.addEventListener('click', doLogout);
+  document.getElementById('logoutBtnMobile')?.addEventListener('click', doLogout);
+  document.getElementById('signOutFromProfile')?.addEventListener('click', doLogout);
+
+  // ---------- Toast ----------
+  const toast = document.getElementById('toast');
+  let toastTimer;
+  function showToast(msg){
+    toast.textContent = '🔔 ' + msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(()=> toast.classList.remove('show'), 3800);
+  }
+
+  // ---------- Document Check Handlers ----------
+  document.getElementById('btnConfirmDocs')?.addEventListener('click', ()=>{
+    showToast('Document check confirmed! Verification passed.');
+    showView('status');
+  });
+
+  // ---------- Quick actions ----------
+  document.getElementById('qaJobChange').addEventListener('click', ()=>{ showView('ai-onboarding'); });
+  document.getElementById('qaHelp').addEventListener('click', ()=> openDrawer());
+  document.getElementById('openDrawerFromCard').addEventListener('click', ()=> openDrawer());
+
+  document.getElementById('qaWithdraw').addEventListener('click', ()=>{
+    document.getElementById('actionEyebrow').textContent = 'Quick action';
+    document.getElementById('actionTitle').textContent = 'Withdraw PF';
+    document.getElementById('actionDesc').textContent = 'A focused, guided flow — no forms full of unfamiliar terms.';
+    showView('action');
+  });
+
+  document.getElementById('actionContinueBtn').addEventListener('click', ()=>{
+    document.getElementById('confirmModal').classList.add('open');
+  });
+  document.getElementById('modalCancel').addEventListener('click', ()=>{
+    document.getElementById('confirmModal').classList.remove('open');
+  });
+  document.getElementById('modalContinue').addEventListener('click', ()=>{
+    document.getElementById('confirmModal').classList.remove('open');
+    showToast('Withdrawal request prepared. (Demo — nothing was submitted.)');
+    showView('dashboard');
+  });
+
+  // ---------- AI onboarding chat flow ----------
+  const chatLog = document.getElementById('chatLog');
+  const chatInput = document.getElementById('chatInput');
+  const sendBtn = document.getElementById('sendBtn');
+  const composerBox = document.getElementById('composerBox');
+  let chatStage = 0;
+
+  function resetChat(){
+    chatStage = 0;
+    chatLog.innerHTML = '';
+    chatInput.value = '';
+    composerBox.style.display = 'flex';
+    chatInput.placeholder = "e.g. I changed my job last month and I don't know what I need to do with my PF...";
+  }
+
+  function addMsg(who, html){
+    const wrap = document.createElement('div');
+    wrap.className = 'msg ' + who;
+    wrap.innerHTML = `<div class="avatar">${who==='ai'?'✦':'MS'}</div><div class="bubble">${html}</div>`;
+    chatLog.appendChild(wrap);
+    chatLog.scrollTop = chatLog.scrollHeight;
+    window.scrollTo({top: document.body.scrollHeight, behavior:'smooth'});
+    return wrap;
+  }
+
+  function addTyping(){
+    const wrap = document.createElement('div');
+    wrap.className = 'msg ai';
+    wrap.id = 'typingBubble';
+    wrap.innerHTML = `<div class="avatar">✦</div><div class="bubble"><span class="typing-dots"><span></span><span></span><span></span></span></div>`;
+    chatLog.appendChild(wrap);
+    chatLog.scrollTop = chatLog.scrollHeight;
+    return wrap;
+  }
+
+  sendBtn.addEventListener('click', handleSend);
+  chatInput.addEventListener('keydown', (e)=>{
+    if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); handleSend(); }
+  });
+  document.getElementById('micBtn').addEventListener('click', ()=>{
+    chatInput.value = "I changed my job last month and I don't know what I need to do with my PF.";
+    chatInput.focus();
+  });
+
+  function handleSend(){
+    const text = chatInput.value.trim();
+    if(chatStage === 0){
+      if(!text) return;
+      addMsg('user', escapeHtml(text));
+      chatInput.value = '';
+      const t = addTyping();
+      setTimeout(()=>{
+        t.remove();
+        addMsg('ai', `Got it. You changed employers.<br><br>I'll help you understand what needs to happen to your PF.
+          <div class="mini-journey-preview" style="margin-top:10px;">
+            <div class="mjp-item done"><span class="s"></span>Previous employment</div>
+            <div class="mjp-item done"><span class="s"></span>New employment</div>
+            <div class="mjp-item active"><span class="s"></span>PF transfer</div>
+            <div class="mjp-item"><span class="s"></span>Verification</div>
+            <div class="mjp-item"><span class="s"></span>Completion</div>
+          </div>`);
+        setTimeout(()=>{
+          const t2 = addTyping();
+          setTimeout(()=>{
+            t2.remove();
+            addMsg('ai', `To guide you correctly, I need one more detail.<br><br><strong>Have you already received a PF account from your new employer?</strong>
+              <div class="chip-row" id="chipAnswers">
+                <button class="chip-btn" data-ans="yes">Yes, I have one</button>
+                <button class="chip-btn" data-ans="no">No / Not sure</button>
+                <button class="chip-btn" data-ans="unsure">I don't know</button>
+              </div>`);
+            attachChipHandlers();
+            chatStage = 1;
+            composerBox.style.display = 'none';
+          }, 1100);
+        }, 700);
+      }, 900);
+    }
+  }
+
+  function attachChipHandlers(){
+    document.querySelectorAll('#chipAnswers .chip-btn').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        document.querySelectorAll('#chipAnswers .chip-btn').forEach(b=> b.disabled = true);
+        const label = btn.textContent;
+        addMsg('user', escapeHtml(label));
+        const t = addTyping();
+        setTimeout(()=>{
+          t.remove();
+          addMsg('ai', `Perfect — that's exactly what I needed. I've built your personalized PF journey based on what you told me.`);
+          setTimeout(()=>{
+            addMsg('ai', `<button class="chip-btn" id="goToJourneyBtn" style="background:var(--navy); color:#fff; border-color:var(--navy);">View my journey →</button>`);
+            document.getElementById('goToJourneyBtn').addEventListener('click', ()=>{
+              showView('journey');
+            });
+          }, 500);
+        }, 1000);
+        chatStage = 2;
+      });
+    });
+  }
+
+  function escapeHtml(str){
+    const d = document.createElement('div');
+    d.textContent = str;
+    return d.innerHTML;
+  }
+
+  document.getElementById('qaJobChange').addEventListener('click', ()=>{
+    if(chatLog.children.length === 0){
+      addMsg('ai', "What happened? Tell us in your own words — you don't need to know the PF terminology.");
+    }
+  });
+
+  // ---------- AI drawer ----------
+  const drawerOverlay = document.getElementById('drawerOverlay');
+  const drawerBody = document.getElementById('drawerBody');
+  const drawerInput = document.getElementById('drawerInput');
+
+  function openDrawer(){ drawerOverlay.classList.add('open'); drawerInput.focus(); }
+  fabAI.addEventListener('click', openDrawer);
+  document.getElementById('drawerClose').addEventListener('click', ()=> drawerOverlay.classList.remove('open'));
+  drawerOverlay.addEventListener('click', (e)=>{ if(e.target === drawerOverlay) drawerOverlay.classList.remove('open'); });
+
+  document.querySelectorAll('.dsug').forEach(btn=>{
+    btn.addEventListener('click', ()=> drawerAsk(btn.dataset.q));
+  });
+  document.getElementById('drawerSend').addEventListener('click', ()=>{
+    const v = drawerInput.value.trim();
+    if(v){ drawerAsk(v); drawerInput.value = ''; }
+  });
+  drawerInput.addEventListener('keydown', (e)=>{
+    if(e.key === 'Enter'){
+      const v = drawerInput.value.trim();
+      if(v){ drawerAsk(v); drawerInput.value = ''; }
+    }
+  });
+
+  function drawerAddMsg(who, html){
+    const wrap = document.createElement('div');
+    wrap.className = 'msg ' + who;
+    wrap.innerHTML = `<div class="avatar">${who==='ai'?'✦':'MS'}</div><div class="bubble">${html}</div>`;
+    drawerBody.appendChild(wrap);
+    drawerBody.scrollTop = drawerBody.scrollHeight;
+  }
+
+  function drawerAsk(q){
+    drawerAddMsg('user', escapeHtml(q));
+    const typing = document.createElement('div');
+    typing.className = 'msg ai';
+    typing.innerHTML = `<div class="avatar">✦</div><div class="bubble"><span class="typing-dots"><span></span><span></span><span></span></span></div>`;
+    drawerBody.appendChild(typing);
+    drawerBody.scrollTop = drawerBody.scrollHeight;
+
+    setTimeout(()=>{
+      typing.remove();
+      const lower = q.toLowerCase();
+      let reply;
+      if(lower.includes('transfer')){
+        reply = "Your transfer (PF-TRF-2026-08421) is in the EPFO processing stage — 62% complete. Check the Document Check tab to complete verification.";
+      } else if(lower.includes('withdraw')){
+        reply = "You can start a withdrawal from Quick actions → Withdraw PF. I'll walk you through eligibility and let you review everything before it's submitted.";
+      } else if(lower.includes('uan')){
+        reply = "Your UAN (Universal Account Number) is a permanent ID that stays with you across every employer. Think of it as your PF's home address.";
+      } else if(lower.includes('status')){
+        reply = "Head to the Status tab to see your live tracking timeline — submitted, verified, processing, and completed.";
+      } else {
+        reply = "Got it — I've noted that. For anything about your active transfer, check the Journey tab, and for status details, the Status tab has the full timeline.";
+      }
+      drawerAddMsg('ai', reply);
+    }, 900);
+  }
+
+  // Escape closes overlays
+  document.addEventListener('keydown', (e)=>{
+    if(e.key === 'Escape'){
+      drawerOverlay.classList.remove('open');
+      document.getElementById('confirmModal').classList.remove('open');
+    }
+  });
+
+})();
+</script>
+</body>
+</html>
